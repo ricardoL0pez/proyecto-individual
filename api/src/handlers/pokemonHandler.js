@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const getAllPokemon = require('../controllers/getAllPokemon');
+const getAllPokemons = require('../controllers/getAllPokemons');
 const getPokemonByName = require('../controllers/getPokemonByName');
 const createPokemon = require('../controllers/createPokemon')
 
@@ -9,7 +9,7 @@ const getPokemonHandler = async (req, res) => {
   
     const { name } = req.query;
     try { 
-        const response = await name ? getPokemonByName(name) : await getAllPokemon();
+        const response = await name ? getPokemonByName(name) : await getAllPokemons();
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ error: error.message }) 
