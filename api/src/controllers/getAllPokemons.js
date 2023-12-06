@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
-const infoCleaner = require('../utils');
+//const infoCleaner = require('../utils');
 
 const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=5')
 
@@ -9,12 +9,12 @@ const getAllDB = async () => {
         include: {
             model: Type,
             attributes: ['name'],
-            through: { 
+            through: {
                 attributes: [],
             }
         }
-});
-return items;
+    });
+    return items;
 };
 
 
@@ -22,15 +22,17 @@ const getPokemonDetails = async (url) => {
     try {
         const response = await axios.get(url);
         const { height, id, name, sprites, stats, types, weight } = response.data;
-        const filteredStats = stats.filter(stat => stat.stat.name === 'hp' || stat.stat.name === 'attack' || stat.stat.name === 'speed');
         const pokemonInfo = {
-            height,
             id,
             name,
-            sprites: sprites.other['official-artwork'].front_default,
-            stats: filteredStats.map(stat => ({ name: stat.stat.name, base_stat: stat.base_stat })),
+            hp: stats[0].base_stat,
+            attack: stats[1].base_stat,
+            defense: stats[2].base_stat,
+            speed: stats[5].base_stat,
             types: types.map(type => type.type.name),
-            weight
+            sprites: sprites.other['official-artwork'].front_default,
+            height,
+            weight,
         };
         return pokemonInfo;
     } catch (error) {
@@ -43,19 +45,20 @@ const getAllPokemonFormatted = async () => {
     try {
         const pokemonsApi = (await axios.get(URL_BASE)).data.results;
         const pokemonsDetails = await Promise.all(pokemonsApi.map(pokemon => getPokemonDetails(pokemon.url)));
-        
+
         const formattedPokemon = pokemonsDetails.map(pokemonInfo => ({
             id: pokemonInfo.id,
-            nombre: pokemonInfo.name,
-            vida: pokemonInfo.stats.find(stat => stat.name === 'hp').base_stat,
-            ataque: pokemonInfo.stats.find(stat => stat.name === 'attack').base_stat,
-            velocidad: pokemonInfo.stats.find(stat => stat.name === 'speed').base_stat,
-            tipo: pokemonInfo.types,
-            altura: pokemonInfo.height,
-            peso: pokemonInfo.weight,
-            imagen: pokemonInfo.sprites
+            name: pokemonInfo.name,
+            hp: pokemonInfo.hp,
+            attack: pokemonInfo.attack,
+            defense: pokemonInfo.defense,
+            speed: pokemonInfo.speed,
+            types: pokemonInfo.types,
+            height: pokemonInfo.height,
+            weight: pokemonInfo.weight,
+            image: pokemonInfo.sprites,
         }));
-        
+
         return formattedPokemon;
     } catch (error) {
         console.error('Error fetching all formatted Pokemons:', error);
@@ -89,7 +92,6 @@ const getAllApi = async () => {
         throw new Error('Failed to get all API Pokémon');
     }
 };
-
 
 
 const getAllPokemons = async () => {
