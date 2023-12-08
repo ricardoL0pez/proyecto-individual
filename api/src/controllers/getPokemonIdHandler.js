@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
-const URL_BASE = 'https://pokeapi.co/api/v2/pokemon/';
+const { URL_BASE } = require('../utils/config'); 
+
 
 const getPokemonIdHandler = async (id, source) => {
     try {

@@ -14,10 +14,6 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    imagen: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     hp: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -33,11 +29,18 @@ module.exports = (sequelize) => {
     speed: {
       type: DataTypes.INTEGER,
     },
-    altura: {
+    height: {
       type: DataTypes.INTEGER,
     },
-    peso: {
+    weight: {
       type: DataTypes.INTEGER,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isUrl: true, // Validación para asegurar que el valor sea una URL
+      },
     },
     created: { // con este atributo puedo luego filtrar los usuarios creados con mi BDD que estan en true o de la Api que estan en false, puesto en el controllador 
       type: DataTypes.BOOLEAN,

@@ -2,11 +2,8 @@ require('dotenv').config(); //dependecnia que me ayuda a leer los datos guardado
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, BDD } = process.env;  // variables de entorno
-/*importacion de los modelos */
-//const PokemonModel = require('./models/Pokemon');
-//const TypeModel = require('./models/Type');
-
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;  // variables de entorno
+/*importacion de los modelos *///const PokemonModel = require('./models/Pokemon');//const TypeModel = require('./models/Type');
 const sequelize = new Sequelize( //creamos una instancia de sequelize
    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`, //configuarcion sequelize
    {
@@ -49,8 +46,8 @@ const { Pokemon, Type } = sequelize.models;
 //TypeModel(sequalize);
 
 /* Asociaciones*/
-Pokemon.belongsToMany(Type, {through: "Pokemon-Type"}); //al crear la asocacion se crea una columna que se conoce como la clabe foranea forenkey
-Type.belongsToMany(Pokemon, {through: "Pokemon-Type"});
+Pokemon.belongsToMany(Type, {through: "pokemon_type"}); //al crear la asocacion se crea una columna que se conoce como la clabe foranea forenkey
+Type.belongsToMany(Pokemon, {through: "pokemon_type"});
 //Product.hasMany(Reviews);
 
 module.exports = {

@@ -1,7 +1,7 @@
-const axios = require('axios'); //biblioteca de JS para realizar solicitudes HTTP
+const axios = require('axios'); 
 const { Type } = require('../db');
+const { URL_TYPE } = require('../utils/config'); 
 
-const URL_TYPE = ('https://pokeapi.co/api/v2/type/')
 
 const getAllType = async () => { /**Obtengo informacion de la BD, lee archivos, llama API externa y la retorna, por lo tanto debe ser ASYNC*/
     const infoDB = await Type.findAll();
@@ -15,15 +15,17 @@ const getAllType = async () => { /**Obtengo informacion de la BD, lee archivos, 
             const infoDBAfterInsert = await Type.findAll(); //método de Sequelize
 
             return {
-                message: 'Datos insertados exitosamente.',
+                message: 'Data inserted successfully.',
                 insertedData: infoDBAfterInsert
             };
 
         } catch (error) {
-            throw Error('Error al insertar datos:', error);
+            console.error(error);
+            throw Error('Error while inserting data:', error);
         }
     } else {
-        throw Error('La tabla de la base de datos Type no está vacía');
+        console.error(error);
+        throw Error('Non-empty "Type" table during data insertion.');
     }
 };
 

@@ -1,8 +1,7 @@
 const getAllPokemons = require('../controllers/getAllPokemons');
 const getPokemonByName = require('../controllers/getPokemonByName');
-const createPokemon = require('../controllers/createPokemon');
 const getPokemonIdHandler = require('../controllers/getPokemonIdHandler');
-
+const createPokemon = require('../controllers/createPokemon');
 
 
 const getPokemonHandler = async (req, res) => {
@@ -29,13 +28,10 @@ const getDetailPokemonIdHandler = async (req, res) => {
 }
 
 
-
-
-
-/*middleware*/
+/*Middleware*/
 const validate = (req, res, next) => { //middleware para que mi require de createPokemonHandler pase primero por aqui y se valide 
-    const { name, imagen, hp, attack, defense, types } = req.body;
-    if (!name || !imagen || !hp || !attack || !defense || !types) {
+    const { name, hp, attack, defense, speed, types, height, weight, image } = req.body;
+    if (!name || !hp || !attack || !defense || !speed || !types || !height || !weight || !image) {
         return res.status(400).json({ error: 'Missing data' })
     } else {
         next();//next libera la require
@@ -44,15 +40,14 @@ const validate = (req, res, next) => { //middleware para que mi require de creat
 
 /*Crear Pokemon*/
 const createPokemonHandler = async (req, res) => { 
-    const { name, imagen, hp, attack, defense, types } = req.body;
+    const { name, hp, attack, defense, speed, types, height, weight, image } = req.body;
     try {
-        const response = await createPokemon({ name, imagen, hp, attack, defense, types });
-        res.status(200).json(`Tu personaje fue creado con exito ${response}`);
+        const response = await createPokemon({ name, hp, attack, defense, speed, types, height, weight, image });
+        res.status(200).json(response.message); // accedo a la propiedad message del objeto response { success: true, message: `Character ${name} was successfully created` }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
-
 
 
 module.exports = {
@@ -62,3 +57,11 @@ module.exports = {
     validate,
 }; 
 
+
+
+
+
+//Este archivo contiene un handler en Express. Un handler es una función que maneja las solicitudes HTTP entrantes y las envía a las funciones o controladores adecuados para realizar la lógica del negocio. En este caso, createPokemonHandler es un handler para la ruta que se encarga de crear un nuevo Pokémon.
+//Diferencia entre un handler y un controlador:
+//Handler: En términos de Express u otros marcos web, un handler es una función que maneja las solicitudes HTTP. Este puede ser el encargado de determinar qué controlador se llama o puede incluir la lógica directamente.
+//Controlador: Es una parte de la arquitectura MVC (Modelo-Vista-Controlador) y se encarga de manejar la lógica del negocio. Los controladores se utilizan para procesar datos, aplicar reglas de negocio, interactuar con la base de datos y preparar una respuesta para enviar de vuelta al cliente.

@@ -1,8 +1,8 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
+const { URL_BASE } = require('../utils/config'); 
 const { Op } = require('sequelize');
 
-const URL_BASE = 'https://pokeapi.co/api/v2/pokemon/';
 
 const getPokemonByName = async (name) => {
     try {
@@ -50,7 +50,7 @@ const getPokemonByName = async (name) => {
     } catch (error) {
         // Manejar errores si la solicitud falla
         console.error('Error fetching Pokemon by name:', error);
-        throw new Error('Failed to fetch Pokemon by name');
+        throw new Error('Failed to fetch Pokemon by name 😓');
     }
 };
 
