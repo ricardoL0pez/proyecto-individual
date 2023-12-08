@@ -3,19 +3,14 @@ const { Pokemon, Type } = require('../db');
 const { URL_BASE } = require('../utils/config'); 
 const { Op } = require('sequelize');
 
-
 const getPokemonByName = async (name) => {
     try {
-
-        //const pokemonInfoDb = await Pokemon.findone({ where: { name: name } });
-
         const pokemonInfoDb = await Pokemon.findAll({
-            //where: { name: name },
-            where: { 
-                name: { 
-                    [Op.iLike]: `%${name}%` // Búsqueda insensible a mayúsculas y minúsculas
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
                 }
-            }, 
+            },
             include: {
                 model: Type,
                 attributes: ['name'],
@@ -25,7 +20,24 @@ const getPokemonByName = async (name) => {
             }
         });
 
-        if (pokemonInfoDb.length === 0) {
+        if (pokemonInfoDb.length > 0) {
+            const typesArray = pokemonInfoDb[0].types.map((type) => type.name);
+
+            const pokemonInfoDatabase = {
+                id: pokemonInfoDb[0].id,
+                name: pokemonInfoDb[0].name,
+                hp: pokemonInfoDb[0].hp,
+                attack: pokemonInfoDb[0].attack,
+                defense: pokemonInfoDb[0].defense,
+                speed: pokemonInfoDb[0].speed,
+                types: typesArray,
+                height: pokemonInfoDb[0].height,
+                weight: pokemonInfoDb[0].weight,
+                image: pokemonInfoDb[0].image,
+            };
+
+            return pokemonInfoDatabase;
+        } else {
             const responseApi = await axios.get(`${URL_BASE}${name.toLowerCase()}`);
             const dataApi = responseApi.data;
 
@@ -40,21 +52,21 @@ const getPokemonByName = async (name) => {
                 height: dataApi.height,
                 weight: dataApi.weight,
                 sprites: dataApi.sprites.other['official-artwork'].front_default,
-
             };
 
             return pokemonInfoApi;
         }
-        return pokemonInfoDb
-
     } catch (error) {
-        // Manejar errores si la solicitud falla
         console.error('Error fetching Pokemon by name:', error);
-        throw new Error('Failed to fetch Pokemon by name 😓');
+        throw new Error('Failed to fetch Pokemon by name');
     }
 };
 
 module.exports = getPokemonByName;
+
+
+
+
 
 
 

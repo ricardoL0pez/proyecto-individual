@@ -1,6 +1,6 @@
 const getAllPokemons = require('../controllers/getAllPokemons');
 const getPokemonByName = require('../controllers/getPokemonByName');
-const getPokemonIdHandler = require('../controllers/getPokemonIdHandler');
+const getPokemonId = require('../controllers/getPokemonId');
 const createPokemon = require('../controllers/createPokemon');
 
 
@@ -20,7 +20,7 @@ const getDetailPokemonIdHandler = async (req, res) => {
     const { id } = req.params;
     const source = isNaN(id) ? "bdd" : "api" //isNan() si es un valor numerico me devuelve false si es un diferente true // hdge54-hsvc65-hd54gd-64g5hf 
     try {
-        const response = await getPokemonIdHandler(id, source); //le paso como segundo parametro source para decirle a mi cnrolador donde buscar el ID dependiendo del tipo de dato que llegue //pide una respuesta que va a provenir de la invocacion del controlador
+        const response = await getPokemonId(id, source); //le paso como segundo parametro source para decirle a mi cnrolador donde buscar el ID dependiendo del tipo de dato que llegue //pide una respuesta que va a provenir de la invocacion del controlador
         res.status(200).json(response);
     } catch (error) {
         res.status(404).json({ error: error.message })
@@ -37,6 +37,7 @@ const validate = (req, res, next) => { //middleware para que mi require de creat
         next();//next libera la require
     }
 };
+
 
 /*Crear Pokemon*/
 const createPokemonHandler = async (req, res) => { 
