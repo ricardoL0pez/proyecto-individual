@@ -1,9 +1,11 @@
-import { GET_ALL_POKEMONS } from "../actions/action-types";
+import { GET_ALL_POKEMONS, GET_POKEMON_ID, CLEAN_DETAIL, GET_POKEMON_BY_NAME } from "../actions/action-types";
 // Importa los tipos de acciones (action types) desde el archivo action-types.js
 
 // ESTADO GLOBAL INICIAL
 const initialState = {
-    pokemons: [] // Estado inicial con un arreglo vacío para almacenar los personajes
+    pokemons: [], // Estado inicial con un arreglo vacío para almacenar los personajes
+    pokemonsCopy: [],
+    pokemonDetail: []
 };
 
 // REDUCER
@@ -12,7 +14,31 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_POKEMONS:
             // Caso GET_CHARACTERS: actualiza el estado con los personajes obtenidos desde action.payload
-            return { ...state, pokemons: action.payload };
+            return {
+                ...state,
+                pokemons: action.payload,
+                pokemonsCopy: action.payload
+            };
+
+        case GET_POKEMON_ID:
+            // Caso GET_CHARACTERS: actualiza el estado con los personajes obtenidos desde action.payload
+            return {
+                ...state,
+                pokemonDetail: action.payload
+            };
+
+            case CLEAN_DETAIL:
+            return {
+                ...state,
+                pokemonDetail: {}
+            }
+
+            case GET_POKEMON_BY_NAME:
+            // Caso GET_CHARACTERS: actualiza el estado con los personajes obtenidos desde action.payload
+            return {
+                ...state,
+                pokemons: action.payload
+            };
 
         default:
             // Caso por defecto: en caso de no coincidir con ninguna acción conocida, retorna el estado actual

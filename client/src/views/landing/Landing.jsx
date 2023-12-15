@@ -6,7 +6,7 @@ import pikachu from '../../assets/img/pika-pika.gif';
 const Landing = () => {
   return (
     <>
-      <h1>Este es el Landing</h1>
+      
       {/* <img
         src={ball}
         alt="ball-image"

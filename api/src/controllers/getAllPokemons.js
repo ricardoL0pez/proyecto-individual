@@ -4,7 +4,7 @@ const { Pokemon, Type } = require('../db');
 
 //const infoCleaner = require('../utils');
 
-const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=5')
+const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=10')
 
 const getAllDB = async () => {
     const items = await Pokemon.findAll({
