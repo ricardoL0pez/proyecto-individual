@@ -1,34 +1,32 @@
-//import styles from './card.module.css'
+import styles from './card.module.css'
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, name }) => {
+const Card = ({ image, id, name, types }) => {
 
    return (
-      <div>
+      <div className={styles.card}>
 
-         <h1>{id}</h1>
-         <h3>{name}</h3>
-         <Link to={`/home/${id}`}>
-            <h5>Detail</h5>
-         </Link>
+            <div className={styles.cardimg}>
+               <img src={image} alt={name} />
+            </div>
+
+            <div className={styles.cardtex}>
+               <h1>{id}</h1>
+               <h3>{name}</h3>
+               <p>Tipi: { // Muestra los tipos del Pokémon, si existen
+                  types && types.length > 0
+                     ? types.join(", ")
+                     : "Nessun tipo"
+               }
+               </p>
+               <Link to={`/home/${id}`}>
+                  <h5>Detail</h5>
+               </Link>
+            </div>        
 
       </div>
    )
 };
-
-/* const Card = ({ pokemon }) => {
-const {id, name} = pokemon;
-   return (
-      <div>
-
-         <h1>{name}</h1>
-         <Link to={`/home/${id}`}>
-            <h1>Detail</h1>
-         </Link>
-
-      </div>
-   )
-}; */
 
 export default Card;
 
