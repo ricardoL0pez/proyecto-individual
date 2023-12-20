@@ -51,8 +51,3 @@ const createPokemon = async ({ name, hp, attack, defense, speed, types, height, 
 module.exports = createPokemon;
 
 
-
-
-/* const newPokemon = await Pokemon.create({ name, imagen, vida, ataque, defensa });//El create crea un objeto que tiene las especificaciones ddel prototipo del modelo de ususario
-newPokemon.addTypes(types);
-return newPokemon; */

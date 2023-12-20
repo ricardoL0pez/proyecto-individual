@@ -16,7 +16,12 @@ const getAllDB = async () => {
             }
         }
     });
-    return items;
+    const transformedItems = items.map(item => ({
+        ...item.toJSON(), //copia todas las propiedades del objeto item original
+        types: item.types.map(type => type.name),
+    }));
+
+    return transformedItems;
 };
 
 

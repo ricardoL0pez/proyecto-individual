@@ -11,7 +11,7 @@ const Card = ({ image, id, name, types }) => {
             </div>
 
             <div className={styles.cardtex}>
-               <h1>{id}</h1>
+               
                <h3>{name}</h3>
                <p>Tipi: { // Muestra los tipos del Pokémon, si existen
                   types && types.length > 0

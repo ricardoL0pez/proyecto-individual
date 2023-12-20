@@ -1,17 +1,18 @@
-//import styles from './home.module.css';
 import { useState, useEffect } from 'react';
-import pikachu from '../../assets/img/pikachu-roll.gif';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import Cards from '../../components/cards/Cards';
+import Paginate from '../../components/paginate/Paginate';
+import Loading from '../../components/Loading';
+
 import { useDispatch, useSelector } from "react-redux"; // Importa los hooks useDispatch y useSelector de React Redux
-
-
+import { getAllPokemons } from "../../redux/actions/index";
 
 const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const dispatch = useDispatch();
   const [filtered, setFiltered] = useState([]);
   const [searchString, setSearchString] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     setFiltered(pokemons);
@@ -19,21 +20,30 @@ const Home = () => {
 
   const handleChange = (searchString) => {
     setSearchString(searchString);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
     const filteredPokemons = pokemons.filter((p) =>
       p.name.toLowerCase().includes(searchString.toLowerCase())
     );
     setFiltered(filteredPokemons);
+    setNoResults(filteredPokemons.length === 0); // Actualiza el estado noResults si no hay resultados
   };
+
+  useEffect(() => {
+    dispatch(getAllPokemons())
+      .then(() => {
+        setIsLoading(false); // Cuando la carga se completa con éxito, se cambia isLoading a false
+      })
+      .catch((error) => {
+        console.error('Error fetching pokemons:', error);
+        setIsLoading(false); // En caso de error, también se cambia isLoading a false
+      });
+  }, [dispatch]);
 
   return (
     <div>
-      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
-      <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
-      <Cards pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
+      <SearchBar handleChange={handleChange} />
+      {isLoading && <Loading />}
+      {noResults && <p>Boh, non so</p>}
+      <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
     </div>
   );
 };
