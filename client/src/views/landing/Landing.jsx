@@ -1,25 +1,21 @@
-//import styles from './landing.module.css';
+import styles from './landing.module.css';
 import { Link } from 'react-router-dom';
-//import ball from '../../assets/img/ball.gif';
 import pikachu from '../../assets/img/pika-pika.gif';
+import Loader from '../../utils/loaders/loader-pikachu/Loader'
 
 const Landing = () => {
   return (
-    <>
-      
-      {/* <img
-        src={ball}
-        alt="ball-image"
-        className={styles.ballImage}
-        onAnimationEnd={(e) => e.target.style.animationIterationCount = '1'} // Detiene la animación después de una iteración
-      /> */}
-
-      
-      <Link to="/home">
-      <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
-        {/* <button>Enter</button> */}
-      </Link>
-    </>
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <Loader />
+      </div>
+      <div className={styles.content}>
+        <Link to="/home">
+          <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
+          {/* <button>Enter</button> */}
+        </Link>
+      </div>
+    </div>
   );
 };
 

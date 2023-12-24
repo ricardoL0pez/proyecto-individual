@@ -37,7 +37,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 server.use('*', (req, res) => { //' * ' "wildcard" todas las rutas que no coinciden o han sido manejadas por los middlewares o rutas anteriores  responder con 404 
-  res.status(404).json({ error: 'Not found 🫥'})
+  res.status(404).json({ error: 'Not found 🫥🫥🫥'})
 });
 
 module.exports = server;

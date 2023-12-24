@@ -7,4 +7,3 @@ typeRouter.get('/', getTypeHandler);
 
 module.exports = typeRouter;
 
-

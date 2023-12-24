@@ -1,7 +1,7 @@
-import { GET_ALL_POKEMONS, GET_POKEMON_ID, CLEAN_DETAIL, GET_POKEMON_BY_NAME } from "./action-types"; // Importa los tipos de acciones desde el archivo action-types.js
+import { GET_ALL_POKEMONS, GET_POKEMON_ID, CLEAN_DETAIL, GET_POKEMON_BY_NAME, GET_ALL_TYPES } from "./action-types"; // Importa los tipos de acciones desde el archivo action-types.js
 import axios from "axios"; // Importa Axios para hacer peticiones HTTP
 
-import { URL_BASE } from "../../utils/config";
+import { URL_BASE, URL_TYPE } from "../../utils/config";
 
 
 // ACTION CREATOR para obtener personajes usando Axios con async-await
@@ -26,6 +26,14 @@ export const getPokemonByName = (name) => {
     return async function(dispatch) {
         const response = await axios(`http://localhost:3001/pokemons/?name=${name}`); // Utilizo template strings para que el valor del nombre sea dinamico
         dispatch({ type: GET_POKEMON_BY_NAME, payload: response.data }); // Despacha una acción con el tipo GET_CHARACTERS y los datos obtenidos como carga útil (payload)
+        // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
+    };
+};
+
+export const getAllTypes = () => {
+    return async function(dispatch) {
+        const response = await axios(URL_TYPE); // Realiza una solicitud GET para obtener datos de personajes desde una API (JSONPlaceholder en este caso)
+        dispatch({ type: GET_ALL_TYPES, payload: response.data }); // Despacha una acción con el tipo GET_CHARACTERS y los datos obtenidos como carga útil (payload)
         // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
     };
 };

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Paginate from '../../components/paginate/Paginate';
-import Loading from '../../components/Loading';
+import Loader from '../../utils/loaders/loader-pikachu/Loader';
 
 import { useDispatch, useSelector } from "react-redux"; // Importa los hooks useDispatch y useSelector de React Redux
 import { getAllPokemons } from "../../redux/actions/index";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
@@ -41,9 +42,14 @@ const Home = () => {
   return (
     <div>
       <SearchBar handleChange={handleChange} />
-      {isLoading && <Loading />}
+      {isLoading && <Loader />}
       {noResults && <p>Boh, non so</p>}
       <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
+
+      <Link to={"/create"} className="goToCreate">
+        <h3>Crea il tuo pokemon</h3>
+      </Link>
+
     </div>
   );
 };

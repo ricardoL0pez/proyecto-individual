@@ -1,7 +1,7 @@
 import Landing from './views/landing/Landing';
 import Home from './views/home/Home';
 import Detail from './views/detail/Detail';
-import Form from './views/create/Form';
+import Form from './views/create/form/Form';
 import NotFound from './utils/notFound/NotFound';
 import { Routes, Route } from 'react-router-dom';
 
