@@ -6,10 +6,13 @@ import Hp from '../hp/Hp';
 import Attack from '../attack/Attack';
 import Defense from '../defense/Defense';
 import Speed from '../speed/Speed';
-import Heigth from '../heigth/heigth';
-import Weigth from '../weight/Weight';
+import Height from '../height/Height';
+import Weight from '../weight/Weight';
 import Types from '../types/Types';
+import Image from "./image/Image";
+import { createPokemon } from "../../../redux/actions/index";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Form = () => {
   // Estado para almacenar los datos del formulario
@@ -21,10 +24,14 @@ const Form = () => {
     speed: '',
     height: '',
     weight: '',
-    types: []
+    types: [],
+    image: ''
   });
 console.log(formData);
   const [isLoading, setIsLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Cambia el estado isLoading a falso inmediatamente
@@ -32,34 +39,52 @@ console.log(formData);
   }, []);
 
   // Función para manejar los cambios en los inputs y actualizar el estado del formulario
-  const handleChange = (fieldName, value) => {
+  const handleChange = (dataName, value) => {
     setFormData({
       ...formData,
-      [fieldName]: value
+      [dataName]: value
     });
   };
 
+  const clearFormData = () => {
+    setFormData({
+      name: '',
+      hp: '',
+      attack: '',
+      defense: '',
+      speed: '',
+      height: '',
+      weight: '',
+      types: [],
+      image: ''
+    });
+  };
+  
   // Función para manejar el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Aquí puedes realizar la validación de formData
-    // Por ejemplo, puedes llamar a una función 'validateFormData' que devuelva un objeto de errores
-    const errors = validateFormData(formData);
-
-    if (Object.keys(errors).length === 0) {
-      // Realiza alguna acción con formData, como enviarla a través de una API o realizar otras operaciones
-      // Aquí puedes hacer lo que necesites con los datos válidos
-      console.log("Datos válidos:", formData);
+  
+    // Validar que todos los campos requeridos tengan valores antes de enviar los datos
+    const requiredDates = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
+    const missingDates = requiredDates.filter(data => !formData[data]);
+  
+    if (missingDates.length === 0) {
+      dispatch(createPokemon(formData));
+      setSuccessMessage('Pokémon creati con successo!');
+      console.log("Valid data:", formData);
+      clearFormData();
     } else {
-      // Si hay errores, puedes manejarlos de la manera que desees, como mostrarlos al usuario
-      console.log("Errores:", errors);
+      // Si hay campos faltantes, puedes manejarlos de acuerdo a tus necesidades, como mostrar un mensaje al usuario
+      console.log("Missing data:", missingDates);
+      // Por ejemplo, mostrar un mensaje al usuario indicando los campos faltantes
+      alert(`Dati obbligatori: ${missingDates.join(', ')}`);
     }
   };
 
   return (
     <>
       <h1>Crea il tuo pokemon</h1>
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {isLoading && <Loader />}
       {!isLoading && (
         <>
@@ -70,9 +95,10 @@ console.log(formData);
             <Attack name='attack' value={formData.attack} onChange={(value) => handleChange('attack', value)} />
             <Defense name='defense' value={formData.defense} onChange={(value) => handleChange('defense', value)} />
             <Speed name='speed' value={formData.speed} onChange={(value) => handleChange('speed', value)} />
-            <Heigth name='height' value={formData.height} onChange={(value) => handleChange('height', value)} />
-            <Weigth name='weight' value={formData.weight} onChange={(value) => handleChange('weight', value)} />
+            <Height name='height' value={formData.height} onChange={(value) => handleChange('height', value)} />
+            <Weight name='weight' value={formData.weight} onChange={(value) => handleChange('weight', value)} />
             <Types name='types' value={formData.types} onChange={(value) => handleChange('types', value)} />
+            <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
             
             {/* Botón de submit para enviar el formulario */}
             <button type="submit">Crear</button>

@@ -4,8 +4,8 @@ export const FILTER_POKEMONS = "FILTER_POKEMONS";
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const GET_ALL_TYPES = "GET_TYPES";
+export const CREATE_POKEMON = "CREATE_POKEMON";
 
 export const ORDER_NAME ="ORDER_NAME";
 export const ORDER_ATTACK = "ORDER_ATTACK";
-export const CREATE_POKEMON = "CREATE_POKEMON";
 export const FILTER_TYPE = "FILTER_TYPE"

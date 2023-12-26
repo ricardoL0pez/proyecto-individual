@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import validation from "./validation";
 
-const Defense = () => {
+const Defense = ({ name, value, onChange }) => {
 
     const [userData, setUserData] = useState({
-      defense: 0,
+      defense: value || 0,
     });
   
     const [errors, setErrors] = useState({});
@@ -14,6 +14,7 @@ const Defense = () => {
       const currentdefense = Number(userData.defense);
       if (currentdefense >= 0 && currentdefense < 250) {
         setUserData({ ...userData, defense: currentdefense + 1 });
+        onChange(currentdefense + 1); // 📌Envía el nuevo valor al componente padre
       }
     };
   
@@ -22,12 +23,14 @@ const Defense = () => {
       const currentdefense = Number(userData.defense);
       if (currentdefense > 1 && currentdefense <= 250) {
         setUserData({ ...userData, defense: currentdefense - 1 });
+        onChange(currentdefense - 1); // 📌Envía el nuevo valor al componente padre
       }
     };
   
     const resetear = (event) => {
       event.preventDefault();
       setUserData({ ...userData, defense: 0 });
+      onChange(0); // 📌Envía el nuevo valor al componente padre
     };
   
     const handleChange = (event) => {
@@ -47,6 +50,7 @@ const Defense = () => {
             ...userData,
             [name]: parsedValue,
           });
+          onChange(parsedValue); // 📌Envía el nuevo valor al componente padre
         } else {
           setUserData({
             ...userData,
@@ -60,9 +64,11 @@ const Defense = () => {
       if (event.key === 'ArrowUp' && userData.defense < 240) {
         event.preventDefault();
         setUserData({ ...userData, defense: userData.defense + 10 });
+        onChange(userData.defense + 10); // 📌Envía el nuevo valor al componente padre
       } else if (event.key === 'ArrowDown' && userData.defense >= 10) {
         event.preventDefault();
         setUserData({ ...userData, defense: userData.defense - 10 });
+        onChange(userData.defense - 10); // 📌Envía el nuevo valor al componente padre
       } else if (event.key === 'ArrowDown' && userData.defense < 10) {
         event.preventDefault(); // Evita el comportamiento predeterminado del navegador para la tecla presionada
         // No se actualiza el estado de userData.defense si es menor que 10
@@ -83,7 +89,7 @@ const Defense = () => {
         id="defense"
         placeholder="difesa"
         type="number"
-        name="defense"
+        name={name} 
         value={userData.defense}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
