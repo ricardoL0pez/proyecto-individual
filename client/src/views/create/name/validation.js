@@ -1,17 +1,27 @@
-const validation = (input) => {
-    const errors = {}
+const validation = (input, pokemons) => {
+    const errors = {};
 
     if (!input.name.trim()) {
-        errors.name = "Campo obligatorio";
+        errors.name = "Campo obbligatorio";
     } else {
         if (input.name.length > 10) {
-            errors.name = "Debe ser menor a 10 caracteres";
+            errors.name = "Il nome deve essere inferiore a 10 caratteri";
         }
 
         if (!/^[a-zA-Z]+$/.test(input.name)) {
-            errors.name = "El nombre solo puede contener letras";
+            errors.name = "Il nome può contenere solo lettere";
+        }
+
+        // Verificar si el nombre del Pokémon ya existe en el conjunto de datos
+        const isNameExists = pokemons.some(
+            (pokemon) => pokemon.name.toLowerCase() === input.name.toLowerCase()
+        );
+
+        if (isNameExists) {
+            errors.name = "Il nome del Pokémon esiste già.";
         }
     }
+
     return errors;
 };
 

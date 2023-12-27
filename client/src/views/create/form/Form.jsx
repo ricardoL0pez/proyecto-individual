@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const Form = () => {
-  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     name: '',
     hp: '',
@@ -28,17 +27,17 @@ const Form = () => {
     image: ''
   });
 console.log(formData);
-  const [isLoading, setIsLoading] = useState(true);
-  const [successMessage, setSuccessMessage] = useState('');
+const [isLoading, setIsLoading] = useState(true);
+const [successMessage, setSuccessMessage] = useState('');
+const [formValid, setFormValid] = useState(false);
+const [formErrors, setFormErrors] = useState({});
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Cambia el estado isLoading a falso inmediatamente
-    setIsLoading(false);
+    setIsLoading(false);    // Cambia el estado isLoading a falso inmediatamente
   }, []);
-
-  // Función para manejar los cambios en los inputs y actualizar el estado del formulario
+// Función para manejar los cambios en los inputs y actualizar el estado del formulario
   const handleChange = (dataName, value) => {
     setFormData({
       ...formData,
@@ -59,27 +58,34 @@ console.log(formData);
       image: ''
     });
   };
-  
   // Función para manejar el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
-  
     // Validar que todos los campos requeridos tengan valores antes de enviar los datos
-    const requiredDates = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
-    const missingDates = requiredDates.filter(data => !formData[data]);
+    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
+    const missingData = requiredData.filter(data => !formData[data]);
   
-    if (missingDates.length === 0) {
+    if (missingData.length === 0) {
       dispatch(createPokemon(formData));
       setSuccessMessage('Pokémon creati con successo!');
       console.log("Valid data:", formData);
       clearFormData();
     } else {
       // Si hay campos faltantes, puedes manejarlos de acuerdo a tus necesidades, como mostrar un mensaje al usuario
-      console.log("Missing data:", missingDates);
+      console.log("Missing data:", missingData);
       // Por ejemplo, mostrar un mensaje al usuario indicando los campos faltantes
-      alert(`Dati obbligatori: ${missingDates.join(', ')}`);
+      alert(`Dati obbligatori: ${missingData.join(', ')}`);
     }
   };
+
+  useEffect(() => {
+    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image'];
+    const isValid = requiredData.every(data => formData[data]);
+    const hasTypes = formData.types.length > 0;
+
+
+    setFormValid(isValid && hasTypes);
+  }, [formData, formErrors]);
 
   return (
     <>
@@ -101,7 +107,7 @@ console.log(formData);
             <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
             
             {/* Botón de submit para enviar el formulario */}
-            <button type="submit">Crear</button>
+            <button type="submit" disabled={!formValid}>Crear</button>
           </form>
           
           {/* Enlace de vuelta */}
