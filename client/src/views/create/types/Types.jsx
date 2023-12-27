@@ -16,38 +16,39 @@ const Types = ({ name, value, onChange }) => {
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
-        const isNormalOrUnknown = value === 'normal' || value === 'unknown';
-        const maxUserData = 3;
+        const isNormalOrUnknown = value === '908d0b42-b79e-4758-ba57-9ac31d420594' || value === '3420682f-5aed-45a1-9654-489f21d9c621';
 
-        if (isNormalOrUnknown && checked) {
-            setUserData([value]);
-        } else if (isNormalOrUnknown && !checked) {
-            setUserData([]);
+        if (isNormalOrUnknown) {
+            if (checked) {
+                // Si se selecciona 'normal' o 'unknown', deseleccionar otros tipos
+                setUserData([value]);
+            } else {
+                // Si se deselecciona 'normal' o 'unknown', limpiar selección
+                setUserData([]);
+            }
         } else {
             setUserData((prevUserData) => {
-                if (
-                    prevUserData.includes('normal') ||
-                    prevUserData.includes('unknown')
-                ) {
-                    return prevUserData;
-                } else if (prevUserData.includes(value)) {
+                if (prevUserData.includes(value)) {
+                    // Si se deselecciona un tipo que no es 'normal' o 'unknown'
                     return prevUserData.filter((type) => type !== value);
-                } else if (prevUserData.length < maxUserData) {
+                } else if (prevUserData.length < 3) {
+                    // Si se selecciona otro tipo y no hay 'normal' ni 'unknown' seleccionados aún y no se excede el límite de selección
                     return [...prevUserData, value];
                 }
+                // Límite alcanzado (no se permite seleccionar más tipos)
                 return prevUserData;
             });
         }
+        // Establece hasChanges como true para activar la validación
         setHasChanges(true);
-    };//io
+    };
+
 
     const validate = () => {
         const validationErrors = validation({ type: userData });
 
-        if (userData.length === 0) {
-            setErrors({
-                type: "Seleziona minimo un tipo.",
-            });
+        if (Object.keys(validationErrors).length === 0) {
+            setErrors({});
         } else {
             setErrors(validationErrors);
         }
@@ -72,7 +73,11 @@ const Types = ({ name, value, onChange }) => {
                         value={type.id} // Cambia el valor del checkbox al id del tipo
                         id={`type-${type.id}`}
                         onChange={handleCheckboxChange}
-                        checked={userData.includes(type.id)} // Verifica si el id está incluido en userData
+
+                        checked={userData.includes(type.id)}
+                        disabled={
+                            (userData.includes('908d0b42-b79e-4758-ba57-9ac31d420594') || userData.includes('3420682f-5aed-45a1-9654-489f21d9c621')) && !userData.includes(type.id)}
+
                     />
                     <label htmlFor={`type-${type.id}`}>{type.name}</label> {/* Muestra el nombre del tipo */}
                 </div>
