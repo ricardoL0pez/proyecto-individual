@@ -6,13 +6,10 @@ import Loader from '../../utils/loaders/loader-pikachu/Loader'
 const Landing = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <Loader />
-      </div>
+      
       <div className={styles.content}>
         <Link to="/home">
           <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
-          {/* <button>Enter</button> */}
         </Link>
       </div>
     </div>

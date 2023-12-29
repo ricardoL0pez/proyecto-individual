@@ -2,9 +2,9 @@ const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 //const { URL_BASE } = require('../utils/config'); 
 
-//const infoCleaner = require('../utils');
 
-const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=100')
+
+const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=50')
 
 const getAllDB = async () => {
     const items = await Pokemon.findAll({
