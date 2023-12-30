@@ -1,10 +1,10 @@
 import React from "react"; // Importa React
-//import { createRoot } from "react-dom/client"; // Importa la función createRoot de react-dom/client
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"; // Importa BrowserRouter de react-router-dom
 import { Provider } from 'react-redux'; // Importa el componente Provider de react-redux
 import store from './redux/store'; // Importa el store de Redux desde el archivo './redux/store'
 import App from './App'; // Importa el componente principal 'App'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root")); // Crea una raíz para renderizar la aplicación en el elemento con el ID "root"
 

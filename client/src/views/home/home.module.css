@@ -1,0 +1,35 @@
+.container {
+    color: black;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center;  */
+    /* height: 100vh;Ajusta la altura al 100% del viewport  */
+
+    position: relative;
+    /* width: 100%; */
+    /* height: 100vh; */
+    /* Establece el tamaño que desees */
+    overflow: hidden;
+
+    /* background-image: url(../../../assets/img/bgform.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center; */
+
+}
+
+.video {
+    
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ajusta el tamaño del video para cubrir el contenedor */
+    z-index: -1;
+    
+}

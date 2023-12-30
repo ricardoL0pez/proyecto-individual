@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux"; // Importa los hooks useDispatch y useSelector de React Redux
 import { Link } from "react-router-dom";
+import styles from './home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Paginate from '../../components/paginate/Paginate';
 import Loader from '../../utils/loaders/loader-pikachu/Loader';
 import { getAllPokemons, orderByName, filterType, getAllTypes, filterByOrigin } from "../../redux/actions/index";
+import videoSource from '../../assets/video/home.mp4';
 
 const Home = () => {
   const [filtered, setFiltered] = useState([]);
-  console.log(filtered);
   const [searchString, setSearchString] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [noResults, setNoResults] = useState(false);
@@ -61,13 +62,19 @@ const Home = () => {
 
 
   return (
-    <div>
+    <div className={styles.container}>
+
+      <video autoPlay loop muted className={styles.video}>
+      <source src={videoSource} type="video/mp4" />
+      </video>
+
+
       <SearchBar handleChange={handleChange} />
 
       <button onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
       <button onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
 
-        <p>Filtra por tipos</p>
+      <p>Filtra por tipos</p>
       <select onChange={(event) => handleFilterType(event)}>
         <option value="allTypes">Tutti</option>
         {types.map((type, id) => (
@@ -77,10 +84,10 @@ const Home = () => {
         ))}
       </select>
 
-<p>Filtrar por origen</p>
-<button onClick={() => handleFilterByOrigin('Bd')}>Base de datos</button>
-<button onClick={() => handleFilterByOrigin('Api')}>Api</button>
-<button value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
+      <p>Filtrar por origen</p>
+      <button onClick={() => handleFilterByOrigin('Bd')}>Base de datos</button>
+      <button onClick={() => handleFilterByOrigin('Api')}>Api</button>
+      <button value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
 
       {isLoading && <Loader />}
       {noResults && <p>Boh, non so</p>}

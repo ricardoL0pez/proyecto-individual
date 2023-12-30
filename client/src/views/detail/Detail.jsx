@@ -1,3 +1,4 @@
+import styles from './detail.module.css';
 import charmeleon from '../../assets/img/volver.gif';
 import Loader from '../../utils/loaders/loader/Loader';
 import { Link } from "react-router-dom";
@@ -54,6 +55,10 @@ const Detail = () => {
         <img src={charmeleon} alt="charmeleon" style={{ width: '100px' }} />
       </Link>
       <h5>Ritorno</h5>
+
+      
+
+
     </div>
   );
 };

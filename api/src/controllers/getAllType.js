@@ -19,7 +19,7 @@ const getAllType = async () => {
                 insertedData: infoDBAfterInsert
             };
         } else {
-            console.log('Tipos cargados desde la base de datos.');
+            console.log('Types Loaded from the Database.');
             return infoDB;
         }
     } catch (error) {
