@@ -63,40 +63,69 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-
       <video autoPlay loop muted className={styles.video}>
-      <source src={videoSource} type="video/mp4" />
+        <source src={videoSource} type="video/mp4" />
       </video>
 
+      <div className={`${styles.box} ${styles.box1}`}>
+        <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
+      </div>
 
-      <SearchBar handleChange={handleChange} />
 
-      <button onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
-      <button onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
 
-      <p>Filtra por tipos</p>
-      <select onChange={(event) => handleFilterType(event)}>
-        <option value="allTypes">Tutti</option>
-        {types.map((type, id) => (
-          <option key={id} value={type.name}>
-            {type.name}
-          </option>
-        ))}
-      </select>
+      <div className={`${styles.box} ${styles.box2}`}>
+        {/* Search */}
+        <div className={styles.box3}>
+          <SearchBar handleChange={handleChange} />
+          {/* Filtros AZ-ZA */}
+          <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
+          <button className={styles.btn} onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
+          {/* Filtros types */}
+          <p>Filtra por tipos</p>
+          <select onChange={(event) => handleFilterType(event)}>
+            <option value="allTypes">Qualsiasi</option>
+            {types.map((type, id) => (
+              <option key={id} value={type.name}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+          {/* Filtros origen */}
+          <p>Filtrar por origen</p>
+          <button className={styles.btn} onClick={() => handleFilterByOrigin('Bd')}>Creati</button>
+          <button className={styles.btn} onClick={() => handleFilterByOrigin('Api')}>Originali</button>
+          <button className={styles.btn} value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
 
-      <p>Filtrar por origen</p>
-      <button onClick={() => handleFilterByOrigin('Bd')}>Base de datos</button>
-      <button onClick={() => handleFilterByOrigin('Api')}>Api</button>
-      <button value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
+        </div>
+
+
+        <div className={styles.box4}>
+          <Link to={"/create"} className={styles.containercreator}>
+            <div className={styles.pokeball}></div>
+            <button className={styles.btncreate}>+</button>
+            {/* <h3>Crea il tuo pokemon</h3> */}
+          </Link>
+
+
+        </div>
+
+
+
+      </div>
+
+      {/* Crear pokemon */}
+
+
+
+
+
+
 
       {isLoading && <Loader />}
       {noResults && <p>Boh, non so</p>}
       {noTypeResults && <p>Ma dai! No hay Pokémon con este tipo</p>}
-      <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
 
-      <Link to={"/create"} className="goToCreate">
-        <h3>Crea il tuo pokemon</h3>
-      </Link>
+
     </div>
   );
 };

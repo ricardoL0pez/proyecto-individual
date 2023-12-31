@@ -1,4 +1,4 @@
-//import styles from './searchBar.module.css'
+import styles from './searchBar.module.css'
 
 const SearchBar = ({ handleChange }) => {
   const handleChangeSearch = (event) => {
@@ -8,7 +8,7 @@ const SearchBar = ({ handleChange }) => {
   return (
     <div>
       <form >
-        <input
+        <input className={styles.search}
           type="search"
           placeholder='Cerca Pokemon'
           onChange={handleChangeSearch} // Llamar a handleChangeSearch en lugar de handleChange
@@ -17,8 +17,6 @@ const SearchBar = ({ handleChange }) => {
     </div>
   );
 };
-
-
 
 export default SearchBar;
 

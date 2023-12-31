@@ -2,11 +2,78 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 20px; 
-    justify-content:center;
+    gap: 30px;
+    justify-content: center;
     margin: 20px;
     padding: 20px;
 }
 
+.btn {
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+    display: inline-block;
+    overflow: hidden;
+}
 
+.btn button {
+    display: flex;
+    justify-content: center;/* Centra horizontalmente */
+    align-items: center;/* Centra verticalmente */
+    width: 100px;
+    height: 30px;
+    color: white;
+    background: #1a1a1a;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+    border: 0.5px solid yellow;
+    background-color: rgba(0, 0, 0, 0.4);
 
+}
+
+.transitionnex {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background: yellow;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn:hover {
+    color: yellow !important;
+}
+
+.btn:hover .transitionnex {
+    width: 100%;
+    left: 101%;
+    transition: all .7s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.transitionprev {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background: yellow;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn:hover {
+    color: yellow;
+}
+
+.btn:hover .transitionprev {
+    width: 100%;
+    right: 101%;
+    transition: .5s cubic-bezier(0.77, 0, 0.175, 1);
+}

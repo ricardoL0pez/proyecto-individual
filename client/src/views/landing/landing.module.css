@@ -10,3 +10,38 @@
   text-align: center; /* Centra el contenido horizontalmente */
   /* margin-bottom: 20px; Espacio entre los divs  */
 }
+
+
+/* Button 9 */
+
+.btn {
+  cursor: pointer;
+  /* padding: 20px 10px;
+  margin:10px 4px;
+  position: relative;
+  display:inline-block;
+  overflow:hidden; */
+}
+
+
+.transition{
+   position: absolute; 
+    top: -10%;
+    left: 0%;
+    width: 100%;
+    height: 0%;
+    background: yellow;
+    z-index:1;
+}
+
+.btn:hover span{
+  color:aqua !important;
+}
+.btn:hover .transition{
+  height:100%;
+  top:101%;
+  -moz-transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+  -o-transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+}

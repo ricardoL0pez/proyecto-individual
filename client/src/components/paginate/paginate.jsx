@@ -1,21 +1,21 @@
 import styles from './paginate.module.css'
 import Card from "../card/Card"
-import { useState } from "react"; 
+import { useState } from "react";
 
 const Paginate = ({ pokemons }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const previousPage = () => {
-    currentPage > 0 ? setCurrentPage(currentPage - 12) : setCurrentPage(currentPage);
+    currentPage > 0 ? setCurrentPage(currentPage - 8) : setCurrentPage(currentPage);
   };
-  
+
   const nextPage = () => {
-    if (pokemons.length > currentPage + 12) {
-      setCurrentPage(currentPage + 12);
+    if (pokemons.length > currentPage + 8) {
+      setCurrentPage(currentPage + 8);
     }
   };
 
-  const paginadoPokemons = pokemons.slice(currentPage, currentPage + 12);
+  const paginadoPokemons = pokemons.slice(currentPage, currentPage + 8);
 
   return (
     <div>
@@ -23,14 +23,20 @@ const Paginate = ({ pokemons }) => {
         {paginadoPokemons?.map(({ image, id, name, types }) => (
           <Card key={id} image={image} id={id} name={name} types={types} />
         ))}
+      
+
+      <div className={styles.btn}>
+        <button onClick={previousPage}>Indietro</button>
+        <div className={styles.transitionprev}></div>
       </div>
 
-      <button onClick={previousPage}>
-        Indietro
-      </button>
-      <button onClick={nextPage}>
-        Avanti
-      </button>
+      <div className={styles.btn}>
+        <button onClick={nextPage}>Avanti</button>
+        <div className={styles.transitionnex}></div>
+      </div>
+      </div>
+
+
     </div>
   );
 };
