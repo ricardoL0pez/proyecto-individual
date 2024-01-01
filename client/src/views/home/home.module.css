@@ -1,9 +1,9 @@
-.containner {
-    color: black;
-    display: flex;
-    flex-wrap: wrap;
-    /* justify-content: space-between;
-  align-items: flex-start; */
+
+@font-face {
+    font-family: 'Pokemon';
+    src: url('../../assets/fonts/Pokemon.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .container {
@@ -13,21 +13,16 @@
     margin: 20px;
 }
 
-.box {
-    margin-right: 0px;
-    /* Espacio entre los divs */
-    margin-bottom: 0px;
-    /* Espacio entre filas */
-}
 
 .box1 {
+    margin-right: 0px;
+    margin-bottom: 0px;
     width: 60%;
     /* Ancho del primer div */
 }
 
 .box2 {
     width: 40%;
-    /* Ancho del segundo div */
     margin: 20px 0px 0px 0px;
     padding: 20px 0px 0px 0px;
 }
@@ -45,40 +40,56 @@
     z-index: -1;
 }
 
+select {
+    width: 100px;
+    height: 30px;
+    color: black;
+    text-align: center;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0 10px 0 10px;
+}
+
 .btn {
     width: 100px;
     height: 30px;
-    color: white;
-    background: #1a1a1a;
-
+    color: black;
     text-align: center;
     cursor: pointer;
-    transition: .6s;
-
     outline: none;
     padding: 10px;
     font-size: 14px;
-    /* box-shadow: 0 0 10px rgb(255, 255, 0); */
-    border: 0.5px solid yellow;
-    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    background-color: white;
+    margin: 0 10px 0 10px;
 }
 
-.box4{
-    display:flex;
-    align-items: flex-start;
-    height: 50%;
+.btn:hover{
+    box-shadow: -5px 5px 0px black;
+    transform: translateY(-15%) translateX(5%);
 }
+
+ .box4{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;  /* Centra verticalmente los elementos */
+    align-items: center; /* Centra horizontalmente los elementos */ 
+} 
 
 .containercreator{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center; 
-    height: 100%;
-    margin: 20px 0 20px 0;
-
+  flex-direction: column;
+  align-items: center; /* Centrar elementos horizontalmente */
+  justify-content: center; /* Centrar elementos verticalmente */
+  text-align: center; 
+  width:fit-content;
+  text-decoration: none;
+    
 }
+
 .btncreate{
     width: 25px;
     height: 25px;
@@ -89,8 +100,40 @@
     align-items: center;
     align-content: center;
     margin: 5px 0 10px 0;
-    /* cursor: crosshair; */
+    cursor: pointer;
 }
+
+.box3{
+    height: 50%;
+    display: flex; 
+    flex-direction: column;
+    
+    
+    
+}
+
+.filtros{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px;
+
+}
+
+h3 {
+    display: none; /* Ocultar el h3 por defecto */
+    margin: 0;
+    color: white;
+    font-size: 25px;
+    font-family: 'Pokemon';
+  }
+  
+  /* Estilo cuando el mouse está sobre el botón */
+ /*  .btncreate:hover + h3 {
+    display: block; 
+  } */
+  
 
 .pokeball {
     width: 60px;
@@ -111,7 +154,10 @@
 .pokeball:hover {
     transform: translateY(-10px);
 }
+.pokeball:hover + h3 {
+    display: block; /* Mostrar el h3 cuando el botón está siendo hover */
+  }
 
-.box3{
-    height: 50%;
-}
+
+
+
