@@ -1,0 +1,5 @@
+
+[build]
+  base = "client" # Ruta relativa a la carpeta raíz donde está el package.json del cliente
+  command = "npm run build" # Comando de construcción del cliente
+  publish = "client/dist" # Carpeta donde se generan los archivos de producción del cliente
