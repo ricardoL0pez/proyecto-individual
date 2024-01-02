@@ -1,6 +1,6 @@
+import styles from './image.module.css';
 import validation from "./validation";
 import { useState, useEffect } from "react";
-
 
 const Image = ({ name, value, onChange }) => {
     // Estado local para almacenar el valor de la URL de la imagen
@@ -40,11 +40,9 @@ const Image = ({ name, value, onChange }) => {
     }, [userData]);
 
     return (
-        <div>
-            {/* Etiqueta label para el input de imagen */}
-            <label htmlFor="image">url dell'immagine</label>
-            {/* Input de tipo texto para ingresar la URL */}
-            <input
+        <div className= {styles.container}>
+            <div className= {styles.label}><label htmlFor="image">url</label></div>
+            <input className= {styles.imageinput}
                 id="image"
                 type="text"
                 name={name}
@@ -52,7 +50,6 @@ const Image = ({ name, value, onChange }) => {
                 value={userData.image} // Valor del input es el estado actual de 'image' en 'userData'
                 onChange={handleChange} // Función que se ejecuta cuando cambia el input
             />
-            {/* Si hay un error en la URL, se muestra un mensaje en rojo */}
             {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
         </div>
     );

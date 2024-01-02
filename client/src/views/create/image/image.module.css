@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.label {
+    width: 70px;
+    font-weight: bold;
+    margin-left: 10px;
+    text-transform: capitalize;
+}
+
+.imageinput {
+    height: 30px;
+    width: 220px;
+    color: black;
+    text-align: left;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.imageinput::placeholder {
+    color: #4D4D4D;
+    font-size: 14px;
+
+}
+
+.imageinput:focus {
+    box-shadow: 0 0 10px rgb(255, 0, 72);
+}

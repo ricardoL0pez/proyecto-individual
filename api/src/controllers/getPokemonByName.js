@@ -78,12 +78,3 @@ module.exports = getPokemonByName;
 
 
 
-/* where: Sequelize.where(
-    Sequelize.fn('LOWER', Sequelize.col('name')),
-    Sequelize.fn('LOWER', name)
-), */
-/* where: {
-    [Op.eq]: Sequelize.fn('LOWER', Sequelize.col('name')), // Usando Op.eq para igualdad
-}, */
-
-

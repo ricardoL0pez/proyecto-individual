@@ -1,3 +1,4 @@
+import styles from './hp.module.css';
 import { useState, useEffect } from "react";
 import validation from "./validation";
 
@@ -83,9 +84,9 @@ const Hp = ({ name, value, onChange }) => {
   }, [userData]);
 
   return (
-    <div>
-      <label htmlFor="hp">Hp</label>
-      <input
+    <div className= {styles.container}>
+      <div className= {styles.label}><label htmlFor="hp">Hp</label></div>
+      <input className= {styles.input}
         id="hp"
         placeholder="Hp"
         type="number"
@@ -97,9 +98,12 @@ const Hp = ({ name, value, onChange }) => {
         max="250"
         step="1"
       />
-      <button onClick={aumentar}>▲</button>
-      <button onClick={resetear}>○</button>
-      <button onClick={disminuir}>▼</button>
+      <div className= {styles.buttons}>
+      <button className= {styles.button} onClick={aumentar}>▲</button>
+      <button className= {styles.button} onClick={resetear}>○</button>
+      <button className= {styles.button} onClick={disminuir}>▼</button>
+      </div>
+      
       {errors.hp && <p style={{ color: "red" }}>{errors.hp}</p>}
     </div>
   );

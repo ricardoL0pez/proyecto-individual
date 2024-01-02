@@ -33,7 +33,7 @@ const Detail = () => {
   }, [dispatch, cleanDetail, id, setIsLoading]); // Ejecuta el efecto al montar el componente y cuando cambien estas dependencias
 
   return (
-    <div>
+    <div className={styles.container}>
       {isLoading && <Loader />}
       <img src={pokemonDetail?.image} alt={name} style={{ width: '100px' }} />
       <h2>{pokemonDetail?.name}</h2>
@@ -51,10 +51,13 @@ const Detail = () => {
       <p>Peso: {pokemonDetail?.weight}</p>
 
       <hr />
-      <Link to={"/home"}>
-        <img src={charmeleon} alt="charmeleon" style={{ width: '100px' }} />
-      </Link>
-      <h5>Ritorno</h5>
+      {/* Enlace de vuelta */}
+      <div className={styles.box5}>
+            <Link className={styles.link} to={"/home"}>
+              <img src={charmeleon} alt="indietro" style={{ width: '100px' }} />
+              <p className={styles.p}>Indietro</p>
+            </Link>
+          </div>
 
       
 

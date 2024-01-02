@@ -1,3 +1,4 @@
+import styles from './height.module.css';
 import { useState, useEffect } from "react";
 import validation from "./validation";
 
@@ -83,9 +84,9 @@ const Height = ({ name, value, onChange }) => {
   }, [userData]);
 
   return (
-    <div>
-      <label htmlFor="height">height</label>
-      <input
+    <div className= {styles.container}>
+      <label className= {styles.label} htmlFor="height">Altezza</label>
+      <input className= {styles.input}
         id="height"
         placeholder="height"
         type="number"
@@ -97,9 +98,12 @@ const Height = ({ name, value, onChange }) => {
         max="250"
         step="1"
       />
-      <button onClick={aumentar}>▲</button>
-      <button onClick={resetear}>○</button>
-      <button onClick={disminuir}>▼</button>
+      <div className= {styles.buttons}>
+      <button className= {styles.button} onClick={aumentar}>▲</button>
+      <button className= {styles.button} onClick={resetear}>○</button>
+      <button className= {styles.button} onClick={disminuir}>▼</button>
+      </div>
+
       {errors.height && <p style={{ color: "red" }}>{errors.height}</p>}
     </div>
   );

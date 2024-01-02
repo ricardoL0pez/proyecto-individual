@@ -1,3 +1,4 @@
+import styles from './weight.module.css';
 import { useState, useEffect } from "react";
 import validation from "./validation";
 
@@ -83,9 +84,9 @@ const Weight = ({ name, value, onChange }) => {
     }, [userData]);
 
   return (
-    <div>
-      <label htmlFor="weight">Peso</label>
-      <input
+    <div className= {styles.container}>
+      <label className= {styles.label} htmlFor="weight">Peso</label>
+      <input className= {styles.input}
         id="weight"
         placeholder="peso"
         type="number"
@@ -97,9 +98,12 @@ const Weight = ({ name, value, onChange }) => {
         max="250"
         step="1"
       />
-      <button onClick={aumentar}>▲</button>
-      <button onClick={resetear}>○</button>
-      <button onClick={disminuir}>▼</button>
+      <div className= {styles.buttons}>
+      <button className= {styles.button} onClick={aumentar}>▲</button>
+      <button className= {styles.button} onClick={resetear}>○</button>
+      <button className= {styles.button} onClick={disminuir}>▼</button>
+      </div>
+
       {errors.weight && <p style={{ color: "red" }}>{errors.weight}</p>}
     </div>
   );

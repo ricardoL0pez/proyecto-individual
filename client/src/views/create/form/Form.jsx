@@ -15,6 +15,7 @@ import { createPokemon } from "../../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import videoSource from '../../../assets/video/create.mp4';
+import Card from '../../../components/card/Card';
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -33,6 +34,7 @@ const Form = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  
 
   const dispatch = useDispatch();
 
@@ -89,20 +91,19 @@ const Form = () => {
     setFormValid(isValid && hasTypes);
   }, [formData, formErrors]);
 
+
   return (
     <div className={styles.container}>
 
-<video autoPlay loop muted className={styles.video}>
-      <source src={videoSource} type="video/mp4" />
+      <video autoPlay loop muted className={styles.video}>
+        <source src={videoSource} type="video/mp4" />
       </video>
-     
 
+      <div className={styles.box1}>
+        <h1>Crea il tuo pokemon</h1>
+        {isLoading && <Loader />}
+        {!isLoading && (
 
-      <h1>Crea il tuo pokemon</h1>
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      {isLoading && <Loader />}
-      {!isLoading && (
-        <>
           <form onSubmit={handleSubmit}>
             {/* Componentes con sus respectivas propiedades */}
             <Name name='name' value={formData.name} onChange={(value) => handleChange('name', value)} />
@@ -116,17 +117,52 @@ const Form = () => {
             <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
 
             {/* Botón de submit para enviar el formulario */}
-            <button type="submit" disabled={!formValid}>Crear</button>
+           <button className={styles.btncreate} type="submit" disabled={!formValid}>+</button> 
+          <p>Creare</p>
+
+
           </form>
 
+        )}
+      </div>
+
+      <div className={styles.box2}>
+
+        <div className={styles.box3}>
+          <Card
+            name={formData.name}
+            /* types={formData.types} */
+            image={formData.image}
+            showDetailLink={false}
+          ></Card>
+          {successMessage && <p style={{ color: 'green', marginTop: '20px' }}>{successMessage}</p>}
+        </div>
+
+        <div className={styles.box4}>
+          
+
+         
+
           {/* Enlace de vuelta */}
-          <Link to={"/home"} className="backButton">
-            <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
-            <h3>Volver</h3>
-          </Link>
-        </>
-      )}
-    </div>
+          <div className={styles.box5}>
+            <Link className={styles.link} to={"/home"}>
+              <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
+              <p className={styles.p}>Indietro</p>
+            </Link>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+    </div>/* container */
   );
 };
 

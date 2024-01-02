@@ -1,36 +1,39 @@
 import styles from './card.module.css'
 import { Link } from 'react-router-dom';
 
-const Card = ({ image, id, name, types }) => {
+const Card = ({ image, id, name, types, showDetailLink }) => {
 
    return (
+      <div className={styles.card}>
 
-      <div className={styles.container}>
+         {/* image */}
+         <div className={styles.boximage}>
+            <img src={image} alt={name} />
+         </div>
 
-         <div className={styles.card}>
+         {/* text */}
+         <div className={styles.boxtext}>
+            <div className={styles.name}>{name}</div>
 
-            <div className={styles.cardimg}>
-               <img src={image} alt={name} />
+
+            <div>{types && types.length > 0
+               ? types.join(", ")
+               : "Nessun tipo"}
             </div>
 
-            <div className={styles.cardtex}>
-               
-               <div className={styles.div1}><h3>{name}</h3></div>
-               <div className={styles.div2}><p>Tipi: {types && types.length > 0
-                  ? types.join(", ")
-                  : "Nessun tipo"}
-               </p></div>
-               <div className={styles.div3}><Link to={`/home/${id}`}><h5>Detail</h5></Link></div>
+            {showDetailLink && (  // Condición para mostrar el enlace basada en la prop showDetailLink
+          <Link className={styles.link} to={`/home/${id}`}>
+            Detail
+          </Link>
+        )}
 
-               
-
-               
-
-            </div>
+            {/* <Link className={styles.link} to={`/home/${id}`}>Detail</Link> */}
 
          </div>
 
       </div>
+
+
    )
 };
 

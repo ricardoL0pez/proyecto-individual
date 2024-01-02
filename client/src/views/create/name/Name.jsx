@@ -1,7 +1,7 @@
+import styles from './name.module.css';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemons } from "../../../redux/actions/index";
-
 import validation from "./validation";
 
 const Name = ({ name, value, onChange }) => {
@@ -33,9 +33,9 @@ const Name = ({ name, value, onChange }) => {
     }, [userData, pokemons]);
 
     return (
-        <div>
-            <label htmlFor="name">Nome</label>
-            <input
+        <div className= {styles.container}>
+            <div className= {styles.label}>< label htmlFor="name">Nome</label></div>
+            <input className= {styles.nameinput}
                 id="name"
                 type="text"
                 name={name}

@@ -34,7 +34,7 @@ export const getPokemonId = (id) => {
 
 export const getPokemonByName = (name) => {
     return async function (dispatch) {
-        const response = await axios(`http://localhost:3001/pokemons/?name=${name}`); // Utilizo template strings para que el valor del nombre sea dinamico
+        const response = await axios(`${URL_BASE}?name=${name}`); // Utilizo template strings para que el valor del nombre sea dinamico
         dispatch({ type: GET_POKEMON_BY_NAME, payload: response.data }); // Despacha una acción con el tipo GET_CHARACTERS y los datos obtenidos como carga útil (payload)
         // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
     };
@@ -50,7 +50,7 @@ export const getAllTypes = () => {
 
 export const createPokemon = (pokemonData) => {
     return async function (dispatch) {
-        const response = await axios.post('http://localhost:3001/pokemons/', pokemonData); // Realiza una solicitud POST para almacenar datos en la base de datos
+        const response = await axios.post(URL_BASE, pokemonData); // Realiza una solicitud POST para almacenar datos en la base de datos
         dispatch({ type: CREATE_POKEMON, payload: response.data }); // Despacha una acción con el tipo GET_CHARACTERS y los datos obtenidos como carga útil (payload)
         // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
     };

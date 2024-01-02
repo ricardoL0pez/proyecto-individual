@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.label {
+    width: 70px;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: right;
+}
+
+.nameinput {
+    height: 30px;
+    width: 220px;
+    color: black;
+    text-align: left;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid black;
+    background-color: white;
+    margin-left: 10px;
+}
+
+.nameinput::placeholder {
+    color: #4D4D4D;
+    font-size: 14px;
+
+}
+
+.nameinput:focus {
+    box-shadow: 0 0 10px rgb(255, 0, 72);
+}

@@ -1,7 +1,7 @@
+import styles from './home.module.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux"; // Importa los hooks useDispatch y useSelector de React Redux
 import { Link } from "react-router-dom";
-import styles from './home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Paginate from '../../components/paginate/Paginate';
 import Loader from '../../utils/loaders/loader-pikachu/Loader';
@@ -20,6 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     setFiltered(pokemons);
+    setNoResults(false); // Al cambiar los pokemons, resetea el estado noResults
   }, [pokemons]);
 
   useEffect(() => {
@@ -68,30 +69,24 @@ const Home = () => {
       </video>
 
       <div className={styles.box1}>
+        {isLoading && <Loader />}
+        {noResults && <p style={{ fontSize: '25px'}}>Boh. Nessun risultato.</p>}
+        {noTypeResults && <p style={{ fontSize: '25px'}}>Ma dai. Non ci sono Pokemon di questo tipo</p>}
         <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
       </div>
 
-
-
       <div className={styles.box2}>
 
-
         <div className={styles.box3}>
-
+          {/* Search Filtros AZ-ZA*/}
           <div className={styles.filtros}>
-
-            {/* Search */}
             <SearchBar handleChange={handleChange} />
-            {/* Filtros AZ-ZA */}
             <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
             <button className={styles.btn} onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
           </div>
 
           {/* Filtros types */} {/* Filtros origen */}
-
           <div className={styles.filtros}>
-
-
             <select onChange={(event) => handleFilterType(event)}>
               <option value="allTypes">Qualsiasi</option>
               {types.map((type, id) => (
@@ -103,36 +98,55 @@ const Home = () => {
             <button className={styles.btn} onClick={() => handleFilterByOrigin('Bd')}>Creati</button>
             <button className={styles.btn} onClick={() => handleFilterByOrigin('Api')}>Originali</button>
             <button className={styles.btn} value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
-          
           </div>
 
         </div>
 
         <div className={styles.box4}>
 
+
           <Link to={"/create"} className={styles.containercreator}>
             <div className={styles.pokeball}></div>
+
+            <div className={styles.contenedortext3d}>
+              <div className={styles.boxtext3d}>
+                <div className={styles.text3d}>- </div>
+                <div className={styles.text3d}>C </div>
+                <div className={styles.text3d}>r </div>
+                <div className={styles.text3d}>e </div>
+                <div className={styles.text3d}>a </div>
+                <div className={styles.text3d}>- </div>
+                <div className={styles.text3d}>i </div>
+                <div className={styles.text3d}>l </div>
+                <div className={styles.text3d}>- </div>
+                <div className={styles.text3d}>t </div>
+                <div className={styles.text3d}>u </div>
+                <div className={styles.text3d}>o </div>
+                <div className={styles.text3d}>- </div>
+                <div className={styles.text3d}>P </div>
+                <div className={styles.text3d}>o </div>
+                <div className={styles.text3d}>k </div>
+                <div className={styles.text3d}>e </div>
+                <div className={styles.text3d}>m </div>
+                <div className={styles.text3d}>o </div>
+                <div className={styles.text3d}>n </div>
+              </div>
+            </div>
+
             <button className={styles.btncreate}>+</button>
-            <h3>Crea il tuo pokemon</h3>
           </Link>
+
+
+
+
+
+
 
         </div>
 
-
-
       </div>
 
-      {/* Crear pokemon */}
 
-
-
-
-
-
-
-      {isLoading && <Loader />}
-      {noResults && <p>Boh, non so</p>}
-      {noTypeResults && <p>Ma dai! No hay Pokémon con este tipo</p>}
 
 
     </div>

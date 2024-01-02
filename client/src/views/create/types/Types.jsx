@@ -1,3 +1,4 @@
+import styles from './types.module.css';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTypes } from "../../../redux/actions";
@@ -64,10 +65,13 @@ const Types = ({ name, value, onChange }) => {
 
     return (
         <div>
-            <h1>Seleziona al massimo tre tipi:</h1>
+            <h5>Seleziona al massimo tre tipi:</h5>
+
+            <div className={styles.container}>
+
             {types.map((type) => (
-                <div key={type.id}>
-                    <input
+                <div className={styles.containerinput} key={type.id}>
+                    <input className={styles.input}
                         type="checkbox"
                         name={name}
                         value={type.id} // Cambia el valor del checkbox al id del tipo
@@ -79,9 +83,13 @@ const Types = ({ name, value, onChange }) => {
                             (userData.includes('908d0b42-b79e-4758-ba57-9ac31d420594') || userData.includes('3420682f-5aed-45a1-9654-489f21d9c621')) && !userData.includes(type.id)}
 
                     />
-                    <label htmlFor={`type-${type.id}`}>{type.name}</label> {/* Muestra el nombre del tipo */}
+                    <div className={styles.label}><label  htmlFor={`type-${type.id}`}>{type.name}</label></div> {/* Muestra el nombre del tipo */}
                 </div>
             ))}
+
+            </div>
+
+           
             <div>
                 {Object.keys(errors).length > 0 && (
                     <p style={{ color: "red" }}>{errors.type}</p>

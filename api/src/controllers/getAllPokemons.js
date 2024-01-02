@@ -1,10 +1,6 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
-//const { URL_BASE } = require('../utils/config'); 
-
-
-
-const URL_BASE = ('https://pokeapi.co/api/v2/pokemon/?limit=50')
+const { URL_BASE } = require('../utils/config');
 
 const getAllDB = async () => {
     const items = await Pokemon.findAll({
@@ -23,7 +19,6 @@ const getAllDB = async () => {
 
     return transformedItems;
 };
-
 
 const getPokemonDetails = async (url) => {
     try {
@@ -50,7 +45,7 @@ const getPokemonDetails = async (url) => {
 
 const getAllPokemonFormatted = async () => {
     try {
-        const pokemonsApi = (await axios.get(URL_BASE)).data.results;
+        const pokemonsApi = (await axios.get(`${URL_BASE}?limit=50`)).data.results;
         const pokemonsDetails = await Promise.all(pokemonsApi.map(pokemon => getPokemonDetails(pokemon.url)));
 
         const formattedPokemon = pokemonsDetails.map(pokemonInfo => ({
@@ -72,7 +67,6 @@ const getAllPokemonFormatted = async () => {
         throw new Error('Failed to fetch all formatted Pokemons');
     }
 };
-
 
 const removeDuplicatePokemonByID = (getAllPokemonFormatted) => {
     try {
@@ -107,9 +101,6 @@ const getAllPokemons = async () => {
 
     return [...pokemonsDb, ...pokemonsApi]
 
-    /* const infoApi = ( await axios.get(URL_BASE)).data.results;
-    const pokemonsApi = infoCleaner(infoApi); 
-    return [...pokemonsDB, ...pokemonsApi] */
 };
 
 module.exports = getAllPokemons;

@@ -1,3 +1,4 @@
+import styles from './attack.module.css';
 import { useState, useEffect } from "react";
 import validation from "./validation";
 
@@ -83,9 +84,9 @@ const Attack = ({ name, value, onChange }) => {
     }, [userData]);
 
   return (
-    <div>
-      <label htmlFor="attack">Attaco</label>
-      <input
+    <div className= {styles.container}>
+      <label className= {styles.label} htmlFor="attack">Attaco</label>
+      <input className= {styles.input}
         id="attack"
         placeholder="attack"
         type="number"
@@ -97,9 +98,12 @@ const Attack = ({ name, value, onChange }) => {
         max="250"
         step="1"
       />
-      <button onClick={aumentar}>▲</button>
-      <button onClick={resetear}>○</button>
-      <button onClick={disminuir}>▼</button>
+      <div className= {styles.buttons}>
+      <button className= {styles.button} onClick={aumentar}>▲</button>
+      <button className= {styles.button} onClick={resetear}>○</button>
+      <button className= {styles.button} onClick={disminuir}>▼</button>
+      </div>
+      
       {errors.attack && <p style={{ color: "red" }}>{errors.attack}</p>}
     </div>
   );
