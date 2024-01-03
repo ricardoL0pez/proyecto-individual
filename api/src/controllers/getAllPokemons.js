@@ -46,7 +46,7 @@ const getPokemonDetails = async (url) => {
 const getAllPokemonFormatted = async () => {
     try {
         const pokemonsApi = (await axios.get(`${URL_BASE}?limit=50`)).data.results;
-        const pokemonsDetails = await Promise.all(pokemonsApi.map(pokemon => getPokemonDetails(pokemon.url)));
+        const pokemonsDetails = await Promise.all(pokemonsApi.map(pokemon => getPokemonDetails(pokemon.url))); // Promise.all metodo para manejar múltiples promesas al mismo tiempo
 
         const formattedPokemon = pokemonsDetails.map(pokemonInfo => ({
             id: pokemonInfo.id,
@@ -93,7 +93,6 @@ const getAllApi = async () => {
         throw new Error('Failed to get all API Pokémon');
     }
 };
-
 
 const getAllPokemons = async () => {
     const pokemonsDb = await getAllDB();

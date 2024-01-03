@@ -50,7 +50,7 @@ const Detail = () => {
       <p>Altezza: {pokemonDetail?.height}</p>
       <p>Peso: {pokemonDetail?.weight}</p>
 
-      <hr />
+      
       {/* Enlace de vuelta */}
       <div className={styles.box5}>
             <Link className={styles.link} to={"/home"}>

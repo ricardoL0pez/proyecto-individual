@@ -13,7 +13,6 @@ import axios from "axios"; // Importa Axios para hacer peticiones HTTP
 
 import { URL_BASE, URL_TYPE } from "../../utils/config";
 
-
 // ACTION CREATOR para obtener personajes usando Axios con async-await
 export const getAllPokemons = () => {
     return async function (dispatch) {
@@ -22,7 +21,6 @@ export const getAllPokemons = () => {
         // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
     };
 };
-
 
 export const getPokemonId = (id) => {
     return async function (dispatch) {

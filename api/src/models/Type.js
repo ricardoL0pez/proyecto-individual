@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
-    // defino el modelo
-    sequelize.define('type', {
+    
+    sequelize.define('type', {// defino el modelo de datos type
         id: {
             type: DataTypes.UUID, // (Identificador Único Universal)dato que representa un identificador único de forma alfanumérica, longitud fija de 128 bits
             primaryKey: true, //ID se designa como la clave primaria

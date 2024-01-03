@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 const { URL_BASE } = require('../utils/config');
 
-const getPokemonId = async (id, source) => {
+const getPokemonId = async (id, source) => { //recibe el ID y source como argumentos desde donde se invoca esta función
     try { // Comienza un bloque try-catch para manejar errores
         if (source === 'api') {
             // Comprueba si la fuente es 'api'

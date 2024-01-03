@@ -6,7 +6,7 @@ const { URL_BASE } = require('../utils/config');
 const validateNameApi = async (name) => {
     try {
         // Consulto a la base de datos para verificar si el name existe
-        const pokemonsDB = await Pokemon.findAll({ where: { name: name.toLowerCase() } });
+        const pokemonsDB = await Pokemon.findAll({ where: { name: name.toLowerCase() } });//findALL() metodo de sequelize
         if (pokemonsDB.length > 0) {
             return false; // Retorna falso si el Pokémon existe en la base de datos
         }

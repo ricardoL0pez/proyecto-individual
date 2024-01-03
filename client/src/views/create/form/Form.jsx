@@ -34,7 +34,7 @@ const Form = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  
+
 
   const dispatch = useDispatch();
 
@@ -117,8 +117,10 @@ const Form = () => {
             <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
 
             {/* Botón de submit para enviar el formulario */}
-           <button className={styles.btncreate} type="submit" disabled={!formValid}>+</button> 
-          <p>Creare</p>
+            <button className={`${styles.btncreate} ${formValid ? styles.btnValid : ''}`}
+              type="submit"
+              disabled={!formValid}>+</button>
+            <p>Creare</p>
 
 
           </form>
@@ -139,9 +141,9 @@ const Form = () => {
         </div>
 
         <div className={styles.box4}>
-          
 
-         
+
+
 
           {/* Enlace de vuelta */}
           <div className={styles.box5}>

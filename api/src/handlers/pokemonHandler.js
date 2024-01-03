@@ -3,10 +3,8 @@ const getPokemonByName = require('../controllers/getPokemonByName');
 const getPokemonId = require('../controllers/getPokemonId');
 const createPokemon = require('../controllers/createPokemon');
 
-
 const getPokemonHandler = async (req, res) => {
-  
-    const { name } = req.query;
+    const { name } = req.query; //extraigo el valor de la propiedad name del objeto req.query utilizando la sintaxis de desestructuración
     try { 
         const response =  name ? await getPokemonByName(name) : await getAllPokemons();
         res.status(200).json(response);
@@ -15,8 +13,7 @@ const getPokemonHandler = async (req, res) => {
     }  
 };
 
-
-const getDetailPokemonIdHandler = async (req, res) => { 
+const getDetailPokemonIdHandler = async (req, res) => { //objeto "request" representa la solicitud HTTP entrante y contiene diferentes propiedades, como el cuerpo de la solicitud.
     const { id } = req.params;
     const source = isNaN(id) ? "bdd" : "api" //isNan() si es un valor numerico me devuelve false si es un diferente true // hdge54-hsvc65-hd54gd-64g5hf 
     try {
@@ -26,7 +23,6 @@ const getDetailPokemonIdHandler = async (req, res) => {
         res.status(404).json({ error: error.message })
     }
 }
-
 
 /*Middleware*/
 const validate = (req, res, next) => { //middleware para que mi require de createPokemonHandler pase primero por aqui y se valide 
@@ -38,18 +34,16 @@ const validate = (req, res, next) => { //middleware para que mi require de creat
     }
 };
 
-
 /*Crear Pokemon*/
 const createPokemonHandler = async (req, res) => { 
-    const { name, hp, attack, defense, speed, types, height, weight, image } = req.body;
+    const { name, hp, attack, defense, speed, types, height, weight, image } = req.body; //Obtengo los datos del Pokémon desde el cuerpo de la solicitud (req.body).
     try {
-        const response = await createPokemon({ name, hp, attack, defense, speed, types, height, weight, image });
+        const response = await createPokemon({ name, hp, attack, defense, speed, types, height, weight, image }); //Llamo a createPokemon() pasando los datos del Pokémon.
         res.status(200).json(response.message); // accedo a la propiedad message del objeto response { success: true, message: `Character ${name} was successfully created` }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
-
 
 module.exports = {
     getPokemonHandler,
@@ -57,6 +51,8 @@ module.exports = {
     createPokemonHandler,
     validate,
 }; 
+
+
 
 
 

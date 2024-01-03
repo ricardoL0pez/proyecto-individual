@@ -13,10 +13,11 @@ const Home = () => {
   const [searchString, setSearchString] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [noResults, setNoResults] = useState(false);
+  // Hooks useSelector y useDispatch para acceder al estado global y despachar acciones
   const pokemons = useSelector((state) => state.pokemons);
   const types = useSelector((state) => state.types);
-  const dispatch = useDispatch();
   const noTypeResults = useSelector((state) => state.noTypeResults);
+  const dispatch = useDispatch();// Inicializa el dispatcher para despachar acciones
 
   useEffect(() => {
     setFiltered(pokemons);
@@ -46,7 +47,6 @@ const Home = () => {
     setFiltered(filteredPokemons);
     setNoResults(filteredPokemons.length === 0); // Actualiza el estado noResults si no hay resultados
   };
-
 
   const handleOrderBy = (order) => {
     dispatch(orderByName(order));
@@ -81,7 +81,7 @@ const Home = () => {
           {/* Search Filtros AZ-ZA*/}
           <div className={styles.filtros}>
             <SearchBar handleChange={handleChange} />
-            <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
+            <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button> 
             <button className={styles.btn} onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
           </div>
 

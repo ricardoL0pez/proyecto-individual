@@ -1,9 +1,7 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
-module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define('pokemon', {
+
+module.exports = (sequelize) => {// Exporta una función que define el modelo 'pokemon' y recibe la conexión a sequelize como parámetro
+  sequelize.define('pokemon', {  //Definicion del modelo pokemon
     id: {
       type: DataTypes.UUID, // (Identificador Único Universal)dato que representa un identificador único de forma alfanumérica, longitud fija de 128 bits
       primaryKey: true, //ID se designa como la clave primaria
@@ -42,7 +40,7 @@ module.exports = (sequelize) => {
         isUrl: true, // Validación para asegurar que el valor sea una URL
       },
     },
-    created: { // con este atributo puedo luego filtrar los usuarios creados con mi BDD que estan en true o de la Api que estan en false, puesto en el controllador 
+    created: { // con este atributo puedo luego filtrar los usuarios creados con mi BDD que estan en true o de la Api que estan en false o undefine, puesto en el controllador 
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     }
