@@ -27,8 +27,7 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 
-
-// Error catching endware.
+// Error catching endware. ?
 server.use((err, req, res, next) => { 
   const status = err.status || 500;
   const message = err.message || err;
@@ -37,13 +36,7 @@ server.use((err, req, res, next) => {
 });
 
 server.use('*', (req, res) => { //' * ' "wildcard" todas las rutas que no coinciden o han sido manejadas por los middlewares o rutas anteriores  responder con 404 
-  res.status(404).json({ error: 'Not found 🫥🫥🫥'})
+  res.status(404).json({ error: 'Not found ⚠️'})
 });
 
 module.exports = server;
-
-
-
-
-
-

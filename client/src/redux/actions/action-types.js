@@ -9,4 +9,5 @@ export const ORDER_BY_NAME ="ORDER_BY_NAME";
 export const FILTER_TYPE = "FILTER_TYPE"
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
 
+export const FILTER_BY_ATTACK = "FILTER_BY_ATTACK"
 

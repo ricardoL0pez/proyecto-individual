@@ -54,12 +54,12 @@ const getPokemonId = async (id, source) => { //recibe el ID y source como argume
 
                 return pokemonInfoDatabase;
             } else {
-                throw new Error('Pokémon not found in the database');
+                throw new Error('Pokémon not found in the database 😿');
             }
         }
     } catch (error) {
         console.error('Error fetching Pokémon by ID:', error);
-        throw new Error('Failed to fetch Pokémon by ID');
+        throw new Error('Failed to fetch Pokémon by ID 😓');
     }
 };
 

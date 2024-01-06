@@ -12,7 +12,6 @@ const validation = (input, pokemons) => {
             errors.name = "Il nome può contenere solo lettere";
         }
 
-        // Verificar si el nombre del Pokémon ya existe en el conjunto de datos
         const isNameExists = pokemons.some(
             (pokemon) => pokemon.name.toLowerCase() === input.name.toLowerCase()
         );

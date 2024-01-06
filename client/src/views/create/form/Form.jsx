@@ -85,8 +85,9 @@ const Form = () => {
   useEffect(() => {
     const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image'];
     const isValid = requiredData.every(data => formData[data]);
-    const hasTypes = formData.types.length > 0;
-
+   /*  const hasTypes = formData.types.length > 0;*/
+    const hasTypes = formData.types !== null && formData.types !== undefined;
+    ;
 
     setFormValid(isValid && hasTypes);
   }, [formData, formErrors]);
@@ -107,6 +108,7 @@ const Form = () => {
           <form onSubmit={handleSubmit}>
             {/* Componentes con sus respectivas propiedades */}
             <Name name='name' value={formData.name} onChange={(value) => handleChange('name', value)} />
+            <br />
             <Hp name='hp' value={formData.hp} onChange={(value) => handleChange('hp', value)} />
             <Attack name='attack' value={formData.attack} onChange={(value) => handleChange('attack', value)} />
             <Defense name='defense' value={formData.defense} onChange={(value) => handleChange('defense', value)} />
@@ -133,17 +135,23 @@ const Form = () => {
         <div className={styles.box3}>
           <Card
             name={formData.name}
-            /* types={formData.types} */
+            types={formData.types}
             image={formData.image}
             showDetailLink={false}
           ></Card>
+          <div>
+            <br />
+            <p>Hp:{formData.hp}</p>
+            <p>Attacco:{formData.attack}</p>
+            <p>Difesa:{formData.defense}</p>
+            <p>Velocita:{formData.speed}</p>
+            <p>Altezza:{formData.height}</p>
+            <p>Peso:{formData.weight}</p>
+          </div>
           {successMessage && <p style={{ color: 'green', marginTop: '20px' }}>{successMessage}</p>}
         </div>
 
         <div className={styles.box4}>
-
-
-
 
           {/* Enlace de vuelta */}
           <div className={styles.box5}>
@@ -157,12 +165,6 @@ const Form = () => {
 
 
       </div>
-
-
-
-
-
-
 
     </div>/* container */
   );

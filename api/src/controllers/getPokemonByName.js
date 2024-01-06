@@ -6,9 +6,9 @@ const { Op } = require('sequelize');
 const getPokemonByName = async (name) => {
     try {
         const pokemonInfoDb = await Pokemon.findAll({
-            where: {
+            where: { //Defino las condiciones de búsqueda
                 name: {
-                    [Op.iLike]: `%${name}%`
+                    [Op.iLike]: `%${name}%` //Op.iLike (insensitive like) para realizar una búsqueda insensible a mayúsculas y minúsculas y encontrar coincidencias parciales.
                 }
             },
             include: {
@@ -58,23 +58,8 @@ const getPokemonByName = async (name) => {
         }
     } catch (error) {
         console.error('Error fetching Pokemon by name:', error);
-        throw new Error('Failed to fetch Pokemon by name');
+        throw new Error('Failed to fetch Pokemon by name 😓');
     }
 };
 
 module.exports = getPokemonByName;
-
-
-
-
-
-
-
-
-
-//consulta con Sequelize en Node.js que buscará un Pokémon por su nombre en la tabla Pokemon e incluirá información del modelo Type, seleccionando solamente el atributo name y excluyendo los atributos a través de through.
-//El uso de findOne en lugar de findAll indica que estás buscando un solo registro que coincida con el nombre proporcionado en la variable name. Esto es útil si se espera que exista solo un Pokémon con ese nombre en la base de datos.
-//En este código, estamos utilizando sequelize.fn para aplicar la función LOWER a las columnas name tanto en la base de datos como al valor que se está buscando, convirtiendo ambos a minúsculas antes de hacer la comparación. Esto permite que la búsqueda sea insensible a mayúsculas y minúsculas, encontrando registros independientemente de la forma en que se ingresen las letras.
-
-
-

@@ -1,9 +1,9 @@
-@font-face {
+/* @font-face {
     font-family: 'Pokemon';
     src: url('../../assets/fonts/Pokemon.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 .video {
     position: fixed;
@@ -17,7 +17,7 @@
 }
 
 .container {
-    color: black;
+    /* color: black; */
     display: flex;
     flex-direction: row;
     margin: 20px;
@@ -25,7 +25,6 @@
     align-content: center;
     align-items: center;
     height: 100vh;
-
 }
 
 .box1 {
@@ -153,8 +152,6 @@ select {
     }
   }
   
-
-
 .contenedortext3d{
     height: 10px;
     width: 100px;

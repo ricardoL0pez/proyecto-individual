@@ -104,7 +104,7 @@ const Attack = ({ name, value, onChange }) => {
       <button className= {styles.button} onClick={disminuir}>▼</button>
       </div>
       
-      {errors.attack && <p style={{ color: "red" }}>{errors.attack}</p>}
+      {errors.attack && <p style={{ color: "red"}}>{errors.attack}</p>}
     </div>
   );
 };

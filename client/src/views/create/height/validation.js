@@ -9,9 +9,9 @@ function validation(input) {
         const heightValue = parseInt(input.height);
 
         if (heightValue <= 0) {
-            errors.height = "Altezza deve essere superiore a a 0";
+            errors.height = "Altezza deve essere superiore a 0";
         } else if (heightValue > 250) {
-            errors.height = "Altezza non può essere superiore a 250"; // Mensaje de error cuando es mayor a 250
+            errors.height = "Altezza non può essere superiore a 250";
         }
     }
 

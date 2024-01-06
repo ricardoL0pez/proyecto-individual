@@ -13,8 +13,8 @@ const getAllDB = async () => {
         }
     });
     const transformedItems = items.map(item => ({
-        ...item.toJSON(), //copia todas las propiedades del objeto item original
-        types: item.types.map(type => type.name),
+        ...item.toJSON(), //método toJSON() de Sequelize para obtener una representación en forma de objeto JSON del elemento actual (item)
+        types: item.types.map(type => type.name), //Asi obtengo solo el valor del name del type
     }));
 
     return transformedItems;
@@ -39,7 +39,7 @@ const getPokemonDetails = async (url) => {
         return pokemonInfo;
     } catch (error) {
         console.error('Error fetching Pokemon details:', error);
-        throw new Error('Failed to fetch Pokemon details');
+        throw new Error('Failed to fetch Pokemon details 😓');
     }
 };
 
@@ -64,7 +64,7 @@ const getAllPokemonFormatted = async () => {
         return formattedPokemon;
     } catch (error) {
         console.error('Error fetching all formatted Pokemons:', error);
-        throw new Error('Failed to fetch all formatted Pokemons');
+        throw new Error('Failed to fetch all formatted Pokemons 😓');
     }
 };
 
@@ -79,7 +79,7 @@ const removeDuplicatePokemonByID = (getAllPokemonFormatted) => {
         return uniquePokemonArray;
     } catch (error) {
         console.error('Error removing duplicate Pokémon:', error);
-        throw new Error('Failed to remove duplicate Pokémon');
+        throw new Error('Failed to remove duplicate Pokémon 😓');
     }
 };
 
@@ -90,7 +90,7 @@ const getAllApi = async () => {
         return uniquePokemonArray;
     } catch (error) {
         console.error('Error getting all API Pokémon:', error);
-        throw new Error('Failed to get all API Pokémon');
+        throw new Error('Failed to get all API Pokémon 😓');
     }
 };
 

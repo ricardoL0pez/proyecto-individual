@@ -7,17 +7,14 @@ import validation from "./validation";
 const Types = ({ name, value, onChange }) => {
     const types = useSelector((state) => state.types);
     const dispatch = useDispatch();
+
     const [userData, setUserData] = useState([]);
     const [errors, setErrors] = useState({});
     const [hasChanges, setHasChanges] = useState(false);
-    console.log(userData);
-    useEffect(() => {
-        dispatch(getAllTypes());
-    }, [dispatch]);
-
+    
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
-        const isNormalOrUnknown = value === '908d0b42-b79e-4758-ba57-9ac31d420594' || value === '3420682f-5aed-45a1-9654-489f21d9c621';
+        const isNormalOrUnknown = value === 'normal' || value === 'unknown';
 
         if (isNormalOrUnknown) {
             if (checked) {
@@ -63,6 +60,10 @@ const Types = ({ name, value, onChange }) => {
         }
     }, [userData, hasChanges]);
 
+    useEffect(() => {
+        dispatch(getAllTypes());
+    }, [dispatch]);
+
     return (
         <div>
             <h5>Seleziona al massimo tre tipi:</h5>
@@ -74,11 +75,11 @@ const Types = ({ name, value, onChange }) => {
                     <input className={styles.input}
                         type="checkbox"
                         name={name}
-                        value={type.id} // Cambia el valor del checkbox al id del tipo
+                        value={type.name}
                         id={`type-${type.id}`}
                         onChange={handleCheckboxChange}
 
-                        checked={userData.includes(type.id)}
+                        checked={userData.includes(type.name)}
                         disabled={
                             (userData.includes('908d0b42-b79e-4758-ba57-9ac31d420594') || userData.includes('3420682f-5aed-45a1-9654-489f21d9c621')) && !userData.includes(type.id)}
 

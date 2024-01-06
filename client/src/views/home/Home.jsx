@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Paginate from '../../components/paginate/Paginate';
 import Loader from '../../utils/loaders/loader-pikachu/Loader';
-import { getAllPokemons, orderByName, filterType, getAllTypes, filterByOrigin } from "../../redux/actions/index";
+import { getAllPokemons, orderByName, filterType, getAllTypes, filterByOrigin, filterByAttack } from "../../redux/actions/index";
 import videoSource from '../../assets/video/home.mp4';
 
 const Home = () => {
@@ -13,6 +13,7 @@ const Home = () => {
   const [searchString, setSearchString] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [noResults, setNoResults] = useState(false);
+
   // Hooks useSelector y useDispatch para acceder al estado global y despachar acciones
   const pokemons = useSelector((state) => state.pokemons);
   const types = useSelector((state) => state.types);
@@ -24,9 +25,9 @@ const Home = () => {
     setNoResults(false); // Al cambiar los pokemons, resetea el estado noResults
   }, [pokemons]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getAllTypes());
-  }, [dispatch]);
+  }, [dispatch]); */
 
   useEffect(() => {
     dispatch(getAllPokemons())
@@ -39,6 +40,7 @@ const Home = () => {
       });
   }, [dispatch]);
 
+
   const handleChange = (searchString) => {
     setSearchString(searchString);
     const filteredPokemons = pokemons.filter((p) =>
@@ -49,6 +51,7 @@ const Home = () => {
   };
 
   const handleOrderBy = (order) => {
+    
     dispatch(orderByName(order));
   };
 
@@ -61,6 +64,9 @@ const Home = () => {
     dispatch(filterByOrigin(selectedOrigin));
   };
 
+  const handleFilterByAttack = (selectedAttack) => {
+    dispatch(filterByAttack(selectedAttack));//XX
+  };
 
   return (
     <div className={styles.container}>
@@ -70,8 +76,8 @@ const Home = () => {
 
       <div className={styles.box1}>
         {isLoading && <Loader />}
-        {noResults && <p style={{ fontSize: '25px'}}>Boh. Nessun risultato.</p>}
-        {noTypeResults && <p style={{ fontSize: '25px'}}>Ma dai. Non ci sono Pokemon di questo tipo</p>}
+        {noResults && <p style={{ fontSize: '25px' }}>Boh. Nessun risultato.</p>}
+        {noTypeResults && <p style={{ fontSize: '25px' }}>Ma dai. Non ci sono Pokemon di questo tipo</p>}
         <Paginate pokemons={filtered} /> {/* Aquí se pasa el estado filtrado */}
       </div>
 
@@ -81,7 +87,7 @@ const Home = () => {
           {/* Search Filtros AZ-ZA*/}
           <div className={styles.filtros}>
             <SearchBar handleChange={handleChange} />
-            <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button> 
+            <button className={styles.btn} onClick={() => handleOrderBy('A-Z')}>Ordine A-Z</button>
             <button className={styles.btn} onClick={() => handleOrderBy('Z-A')}>Ordine Z-A</button>
           </div>
 
@@ -98,6 +104,11 @@ const Home = () => {
             <button className={styles.btn} onClick={() => handleFilterByOrigin('Bd')}>Creati</button>
             <button className={styles.btn} onClick={() => handleFilterByOrigin('Api')}>Originali</button>
             <button className={styles.btn} value="allTypes" onClick={(event) => handleFilterType(event)}>Tutti</button>
+          </div>
+          {/* Filtrar por attack */}
+          <div>
+            <button className={styles.btn} onClick={() => handleFilterByAttack('Piu+')}>Attacco +</button>
+            <button className={styles.btn} onClick={() => handleFilterByAttack('Piu-')}>Attacco -</button>
           </div>
 
         </div>
@@ -136,18 +147,9 @@ const Home = () => {
             <button className={styles.btncreate}>+</button>
           </Link>
 
-
-
-
-
-
-
         </div>
 
       </div>
-
-
-
 
     </div>
   );

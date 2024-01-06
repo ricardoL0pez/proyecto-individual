@@ -15,7 +15,7 @@ const getAllType = async () => {
             const infoDBAfterInsert = await Type.findAll();
 
             return {
-                message: 'Data inserted successfully.',
+                message: 'Data inserted successfully 🤩',
                 insertedData: infoDBAfterInsert
             };
         } else {

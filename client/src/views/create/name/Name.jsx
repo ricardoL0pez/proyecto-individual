@@ -5,37 +5,47 @@ import { getAllPokemons } from "../../../redux/actions/index";
 import validation from "./validation";
 
 const Name = ({ name, value, onChange }) => {
+    const pokemons = useSelector((state) => state.pokemons);
+    const dispatch = useDispatch();
+
     const [userData, setUserData] = useState({
         name: value || "",
     });
     const [errors, setErrors] = useState({});
-    const dispatch = useDispatch();
-    const pokemons = useSelector((state) => state.pokemons);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        const userValidated = validation({ ...userData, [name]: value }, pokemons); //La función validation ahora recibe los datos y los pokémons como argumentos para realizar la validación correctamente.
-        setErrors(userValidated);
+        // Actualiza el estado de userData con el nuevo valor ingresado en el input
         setUserData({
             ...userData,
-            [name]: value,
+            [name]: value, // Actualiza el campo 'image' en 'userData' con el valor del input
         });
+        // Realiza la validación de la URL y actualiza los errores
+        const userValidated = validation({ [name]: value }, pokemons);
+        setErrors(userValidated);
+        // Envia el valor actualizado al componente padre mediante la función onChange
         onChange(value);
     };
+
+    // Efecto que se ejecuta cuando cambia el estado de userData
+    useEffect(() => {
+        // Verifica si el valor de la imagen no está vacío para realizar la validación
+        if (userData.name.trim() !== '') {
+            const userValidated = validation(userData, pokemons); // Realiza la validación de la imagen
+            setErrors(userValidated); // Actualiza los errores con el resultado de la validación
+        }
+    }, [userData, pokemons]);
+
+
 
     useEffect(() => {
         dispatch(getAllPokemons());
     }, [dispatch]);
 
-    useEffect(() => {
-        const userValidated = validation(userData, pokemons);
-        setErrors(userValidated);
-    }, [userData, pokemons]);
-
     return (
-        <div className= {styles.container}>
-            <div className= {styles.label}>< label htmlFor="name">Nome</label></div>
-            <input className= {styles.nameinput}
+        <div className={styles.container}>
+            <div className={styles.label}>< label htmlFor="name">Nome</label></div>
+            <input className={styles.nameinput}
                 id="name"
                 type="text"
                 name={name}

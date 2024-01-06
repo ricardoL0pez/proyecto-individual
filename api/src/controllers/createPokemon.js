@@ -2,7 +2,6 @@ const { Pokemon } = require('../db');
 const axios = require('axios');
 const { URL_BASE } = require('../utils/config');
 
-
 const validateNameApi = async (name) => {
     try {
         // Consulto a la base de datos para verificar si el name existe
@@ -20,14 +19,12 @@ const validateNameApi = async (name) => {
         return true; // Retorna verdadero si el Pokémon no existe ni en la base de datos ni en la API
 
     } catch (error) {
-         if (error.response && error.response.status === 404) { //n Axios, cuando ocurre un error en la solicitud, la respuesta de la API se almacena en la propiedad response del objeto de error.
+         if (error.response && error.response.status === 404) { //En Axios, cuando ocurre un error en la solicitud, la respuesta de la API se almacena en la propiedad response del objeto de error.
             return true; // Retorna verdadero si el Pokémon no se encuentra en la API
         }
         throw error; // Lanza cualquier otro error que se haya producido 
-        //res.status(404).json(error.response);
     }
 };
-
 
 const createPokemon = async ({ name, hp, attack, defense, speed, types, height, weight, image }) => {
     try {
@@ -35,18 +32,15 @@ const createPokemon = async ({ name, hp, attack, defense, speed, types, height, 
 
         if (isValid) {
             const newPokemon = await Pokemon.create({ name, hp, attack, defense, speed, height, weight, image });
-            await newPokemon.addTypes(types);
+            await newPokemon.addTypes(types);//asocio types al nuevo Pokémon en la bd
             return { success: true, message: `Character ${name} was successfully created 😻` };
         } else {
-            throw new Error(`A Pokémon with the name ${name} already exists 😿.`);
+            throw new Error(`A Pokémon with the name ${name} already exists 😿`);
         }
     } catch (error) {
         throw new Error(`Error creating Pokémon: ${error.message} 🙀`);
     }
 }; 
-
-
-
 
 module.exports = createPokemon;
 

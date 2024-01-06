@@ -9,9 +9,9 @@ function validation(input) {
         const hpValue = parseInt(input.hp);
 
         if (hpValue <= 0) {
-            errors.hp = "HP deve essere superiore a a 0";
+            errors.hp = "HP deve essere superiore a 0";
         } else if (hpValue > 250) {
-            errors.hp = "HP non può essere superiore a 250"; // Mensaje de error cuando es mayor a 250
+            errors.hp = "HP non può essere superiore a 250";
         }
     }
 

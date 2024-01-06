@@ -1,11 +1,11 @@
-require('dotenv').config(); //Dependecnia que me ayuda a leer las variables de entorno definidas en el archivo .env en el objeto process.env
+require('dotenv').config(); //Dependencia para leer las variables de entorno
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;  //Variables de entorno
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE } = process.env;//Variables de entorno
 
 const sequelize = new Sequelize( //Creo una instancia de sequelize para interactuar con la base de datos PostgreSQL
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`, //Configuración de conexión a la base de datos
+   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}`, //Configuración de conexión a la base de datos
    {
       logging: false, 
       native: false, 
@@ -15,7 +15,7 @@ const basename = path.basename(__filename);
 
 const modelDefiners = [];
 
-fs.readdirSync(path.join(__dirname, '/models'))// Leo todos los archivos de la carpeta Models, los requiero y agrego al arreglo modelDefiners
+fs.readdirSync(path.join(__dirname, '/models'))
    .filter(
       (file) =>
          file.indexOf('.') !== 0 &&
@@ -44,12 +44,10 @@ const { Pokemon, Type } = sequelize.models;
 //Asociaciones
 Pokemon.belongsToMany(Type, {through: "pokemon_type"}); //al crear la asocacion se crea una columna que se conoce como la clave foranea forenkey
 Type.belongsToMany(Pokemon, {through: "pokemon_type"});
-//Product.hasMany(Reviews);
 
 module.exports = {
-   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+   ...sequelize.models, 
+   conn: sequelize,
 };
-
 
 /*inicializa la conexión a la base de datos*/

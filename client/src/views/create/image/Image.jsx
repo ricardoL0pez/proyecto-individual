@@ -14,20 +14,18 @@ const Image = ({ name, value, onChange }) => {
   
     // Función que se ejecuta cada vez que hay cambios en el input de la imagen
     const handleChange = (event) => {
-        const inputValue = event.target.value;
+        const { value } = event.target;
 
         // Actualiza el estado de userData con el nuevo valor ingresado en el input
         setUserData({
             ...userData,
-            image: inputValue, // Actualiza el campo 'image' en 'userData' con el valor del input
+            image: value, // Actualiza el campo 'image' en 'userData' con el valor del input
         });
-
         // Realiza la validación de la URL y actualiza los errores
-        const userValidated = validation({ image: inputValue });
+        const userValidated = validation({ image: value });
         setErrors(userValidated);
-
         // Envia el valor actualizado al componente padre mediante la función onChange
-        onChange(inputValue);
+        onChange(value);
     };
 
     // Efecto que se ejecuta cuando cambia el estado de userData
