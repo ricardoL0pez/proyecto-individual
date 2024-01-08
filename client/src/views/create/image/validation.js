@@ -1,4 +1,4 @@
-const validation = (input) => {
+/* const validation = (input) => {
     const errors = {}; // Objeto que almacenará los errores de validación
   
     // Verifica si el campo de imagen está vacío después de eliminar espacios en blanco al inicio y al final
@@ -16,5 +16,35 @@ const validation = (input) => {
     return errors; // Devuelve el objeto de errores (puede estar vacío si no hay errores)
   };
   
-  export default validation; // Exporta la función 'validation' para su uso en otros archivos
+  export default validation; // Exporta la función 'validation' para su uso en otros archivos 
+  
+
+  
+  
+   */
+
+
+  const validation = (input) => {
+    const errors = {};
+  
+    if (!input.image.trim()) {
+      errors.image = "Campo obbligatorio";
+    } else {
+      const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/; // Expresión regular para validar la URL
+  
+      if (!urlPattern.test(input.image)) {
+        errors.image = "Inserire un URL valido";
+      } else {
+        const extensionPattern = /\.(png|jpg)$/i; // Expresión regular para validar la extensión de la imagen (.png o .jpg)
+  
+        if (!extensionPattern.test(input.image)) {
+          errors.image = "Inserire un URL valido de imagen PNG o JPG";
+        }
+      }
+    }
+  
+    return errors;
+  };
+  
+  export default validation;
   

@@ -75,12 +75,12 @@ const Detail = () => {
 
 
         {/* Enlace de vuelta */}
-        {/* <div className={styles.box5}>
+         <div className={styles.box5}>
         <Link className={styles.link} to={"/home"}>
           <img src={charmeleon} alt="indietro" style={{ width: '100px' }} />
           <p className={styles.p}>Indietro</p>
         </Link>
-      </div> */}
+      </div> 
 
 
 

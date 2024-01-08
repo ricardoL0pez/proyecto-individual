@@ -30,19 +30,14 @@ const Form = () => {
     types: [],
     image: ''
   });
-  console.log(formData);
+
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setIsLoading(false);    // Cambia el estado isLoading a falso inmediatamente
-  }, []);
-  // Función para manejar los cambios en los inputs y actualizar el estado del formulario
   const handleChange = (dataName, value) => {
     setFormData({
       ...formData,
@@ -63,36 +58,64 @@ const Form = () => {
       image: ''
     });
   };
-  // Función para manejar el envío del formulario
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Validar que todos los campos requeridos tengan valores antes de enviar los datos
-    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
-    const missingData = requiredData.filter(data => !formData[data]);
 
-    if (missingData.length === 0) {
-      dispatch(createPokemon(formData));
-      setSuccessMessage('Pokémon creati con successo!');
-      console.log("Valid data:", formData);
-      clearFormData();
-    } else {
-      // Si hay campos faltantes, puedes manejarlos de acuerdo a tus necesidades, como mostrar un mensaje al usuario
-      console.log("Missing data:", missingData);
-      // Por ejemplo, mostrar un mensaje al usuario indicando los campos faltantes
-      alert(`Dati obbligatori: ${missingData.join(', ')}`);
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Previene el comportamiento por defecto de enviar el formulario
+  
+    // Array con los nombres de los campos requeridos
+    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
+  
+    // Filtra los campos faltantes en el formulario actual
+    const missingData = requiredData.filter(data => !formData[data]);
+  
+    // Comprueba si hay campos faltantes
+    if (missingData.length === 0) { // Si no hay campos faltantes:
+      dispatch(createPokemon(formData)); // Crea un nuevo Pokémon enviando los datos al store mediante una acción
+      setSuccessMessage('Pokémon creati con successo!'); // Establece un mensaje de éxito
+      console.log("Valid data:", formData); // Muestra en consola los datos válidos del formulario
+      clearFormData(); // Limpia los datos del formulario
+    } else { // Si hay campos faltantes:
+      console.log("Missing data:", missingData); // Muestra en consola los campos faltantes
+      alert(`Dati obbligatori: ${missingData.join(', ')}`); // Muestra una alerta con los campos faltantes
     }
   };
+  
 
   useEffect(() => {
-    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image'];
-    const isValid = requiredData.every(data => formData[data]);
-   /*  const hasTypes = formData.types.length > 0;*/
+    setIsLoading(false); 
+  }, []);
+
+  /* useEffect(() => {
+    // Array con los nombres de los campos requeridos para crear un Pokémon
+    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image', 'types'];
+  
+    // Verifica si todos los campos requeridos tienen valores válidos en formData
+    const isValid = requiredData.every(data => formData[data]); 
+   
+    // Comprueba si el campo 'types' tiene al menos un valor (no es null ni undefined)
     const hasTypes = formData.types !== null && formData.types !== undefined;
-    ;
-
-    setFormValid(isValid && hasTypes);
-  }, [formData, formErrors]);
-
+    
+      setFormValid(isValid && hasTypes);
+    
+    // Establece el estado 'formValid' basado en la validez de los datos y si 'types' tiene un valor
+    
+  }, [formData, formErrors]); */
+  
+  useEffect(() => {
+    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image', 'types'];
+  
+    // Verifica si hay algún campo requerido que esté vacío o si el campo 'types' no tiene datos seleccionados
+    const missingData = requiredData.filter(data => !formData[data]);
+    const missingTypes = formData.types.length === 0;
+  
+    // Verifica si no hay campos faltantes y 'types' tiene al menos un valor seleccionado para establecer 'formValid'
+    if (missingData.length === 0 && !missingTypes) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [formData]);
+  
 
   return (
     <>
@@ -119,7 +142,6 @@ const Form = () => {
         {!isLoading && (
 
           <form onSubmit={handleSubmit}>
-            {/* Componentes con sus respectivas propiedades */}
             <Name name='name' value={formData.name} onChange={(value) => handleChange('name', value)} />
             <br />
             <Hp name='hp' value={formData.hp} onChange={(value) => handleChange('hp', value)} />
@@ -131,12 +153,10 @@ const Form = () => {
             <Types name='types' value={formData.types} onChange={(value) => handleChange('types', value)} />
             <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
 
-            {/* Botón de submit para enviar el formulario */}
             <button className={`${styles.btncreate} ${formValid ? styles.btnValid : ''}`}
               type="submit"
               disabled={!formValid}>+</button>
             <p>Creare</p>
-
 
           </form>
 
@@ -176,19 +196,11 @@ const Form = () => {
 
         </div>
 
-
       </div>
 
-    </div>/* container */
+    </div>{/* container */} 
     </>
   );
 };
 
 export default Form;
-
-
-/* el componente Form maneja un único estado (formData) que almacena todos los valores de los campos del formulario. 
-Luego, se pasa una función handleChange a los componentes hijos (Name, Hp, Attack, etc.) 
-para actualizar este estado cuando ocurren cambios en los inputs. 
-Finalmente, al enviar el formulario, se realiza una validación de los datos almacenados en formData 
-y se pueden manejar los datos válidos o los errores obtenidos. */
