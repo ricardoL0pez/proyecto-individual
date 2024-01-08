@@ -1,6 +1,7 @@
 import styles from './form.module.css';
 import React, { useState, useEffect } from "react";
 import pikachu from '../../../assets/img/volver.gif';
+import logo from '../../../assets/img/logo.png';
 import Loader from '../../../utils/loaders/loader/Loader';
 import Name from '../name/Name';
 import Hp from '../hp/Hp';
@@ -94,6 +95,18 @@ const Form = () => {
 
 
   return (
+    <>
+
+<div className={styles.navbar}>
+        <div className={styles.navbarContent}>
+          <Link to="/home">
+            <img src={logo} alt="logo-pokemon" style={{ width: '100px' }} />
+          </Link>
+        </div>
+
+      </div>
+    
+    
     <div className={styles.container}>
 
       <video autoPlay loop muted className={styles.video}>
@@ -167,6 +180,7 @@ const Form = () => {
       </div>
 
     </div>/* container */
+    </>
   );
 };
 

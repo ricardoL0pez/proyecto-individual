@@ -85,25 +85,21 @@ const rootReducer = (state = initialState, action) => {
                         pokemons: allPokemons,
                     };
                 }
-            
-
     return {
         ...state,
-        pokemons: pokemonsToOrder, // Actualizar el estado con la lista ordenada
+        pokemons: pokemonsToOrder,
     }; 
-
-
 
          case FILTER_TYPE:
             let filteredTypes;
             let noTypeResults = false;
 
             if (action.payload === "allTypes") {
-                filteredTypes = state.pokemonsCopy;//copy
+                filteredTypes = state.pokemonsCopy;
             } else {
                 filteredTypes = state.pokemonsCopy.filter((pokemon) =>
                     pokemon.types.includes(action.payload)
-                );//copy
+                );
 
                 if (filteredTypes.length === 0) {
                      noTypeResults = true; 
@@ -116,8 +112,7 @@ const rootReducer = (state = initialState, action) => {
                  noTypeResults: noTypeResults 
             };  
            
-
-         case FILTER_BY_ORIGIN:
+          case FILTER_BY_ORIGIN:
             let filteredByOrigin;
 
             if (action.payload === "Bd") {
@@ -125,14 +120,12 @@ const rootReducer = (state = initialState, action) => {
             } else if (action.payload === "Api") {
                 filteredByOrigin = state.pokemonsCopy.filter(pokemon => pokemon.created === undefined);//copy
             } else {
-                filteredByOrigin = state.pokemons; // Otra lógica para el filtrado en otro caso
+                filteredByOrigin = state.pokemons;
             }
-
             return {
                 ...state,
                 pokemons: filteredByOrigin
-            }; 
-
+            };  
            
         case FILTER_BY_ATTACK:
             let filteredByAttack;
@@ -142,19 +135,16 @@ const rootReducer = (state = initialState, action) => {
             } else if (action.payload === "Piu-") {
                 filteredByAttack = state.pokemons.slice().sort((a,b)=>a.attack - b.attack);
             } else {
-                filteredByAttack = state.pokemons;//copy
+                filteredByAttack = state.pokemons;
             }
-
             return {
                 ...state,
                 pokemons: filteredByAttack
             }
-
-
         default:
             // Caso por defecto: en caso de no coincidir con ninguna acción conocida, retorna el estado actual
             return { ...state };
     }
 };
 
-export default rootReducer; // Exporta el rootReducer para ser utilizado en la configuración del store de Redux
+export default rootReducer;

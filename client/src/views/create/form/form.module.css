@@ -12,9 +12,22 @@
     color: white;
     display: flex;
     flex-direction: row;
-    margin: 40px;
+    margin: 10px 0 0 40px;
     height: 100vh;
 }
+
+.navbar{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 50px;
+    padding: 5px;
+    
+    
+}
+.navbarContent {
+    display: flex;
+    align-items: center;
+    margin-left: 100px; /* Aplicamos el margen solo a este div */
+  }
 
 h1 {
     margin: 0;
@@ -26,7 +39,7 @@ h1 {
 
 .box2 {
     width: 40%;
-    margin: 90px 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
     padding: 40px 0px 0px 0px;
     display: flex;
     flex-direction: column;

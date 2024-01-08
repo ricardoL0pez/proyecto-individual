@@ -6,6 +6,8 @@ import { getPokemonId, cleanDetail } from "../../redux/actions/index";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import videoSource from '../../assets/video/detail.mp4';
+
 
 const Detail = () => {
   const { id } = useParams(); // Obtiene el parámetro 'id' de la URL usando el hook useParams de React Router
@@ -34,34 +36,55 @@ const Detail = () => {
 
   return (
     <div className={styles.container}>
+
+
+      <video autoPlay loop muted className={styles.video}>
+        <source src={videoSource} type="video/mp4" />
+      </video>
+
       {isLoading && <Loader />}
-      <img src={pokemonDetail?.image} alt={name} style={{ width: '100px' }} />
-      <h2>{pokemonDetail?.name}</h2>
-      <p>Hp: {pokemonDetail?.hp}</p>
-      <p>Attacco: {pokemonDetail?.attack}</p>
-      <p>Difesa: {pokemonDetail?.defense}</p>
-      <p>Velocita: {pokemonDetail?.speed}</p>
-      <p>Tipi: { // Muestra los tipos del Pokémon, si existen
-        pokemonDetail.types && pokemonDetail.types.length > 0
-          ? pokemonDetail.types.join(", ")
-          : "Nessun tipo"
-      }
-      </p>
-      <p>Altezza: {pokemonDetail?.height}</p>
-      <p>Peso: {pokemonDetail?.weight}</p>
 
-      
-      {/* Enlace de vuelta */}
-      <div className={styles.box5}>
-            <Link className={styles.link} to={"/home"}>
-              <img src={charmeleon} alt="indietro" style={{ width: '100px' }} />
-              <p className={styles.p}>Indietro</p>
-            </Link>
-          </div>
-
-      
+      <div className={styles.card}>
 
 
+
+        <div className={styles.box}>
+          <img src={pokemonDetail?.image} />
+        </div>{/* img */}
+
+        <div className={styles.content}>
+          <h1>{pokemonDetail?.name}</h1>
+          <p className={styles.ptype}>Tipi: { // Muestra los tipos del Pokémon, si existen
+            pokemonDetail.types && pokemonDetail.types.length > 0
+              ? pokemonDetail.types.join(", ")
+              : "Nessun tipo"
+          }
+          </p>
+        </div>{/* content */}
+
+        <div className={styles.footer}>
+          <div><p>{pokemonDetail?.hp}<br></br> Hp</p></div>
+          <div><p>{pokemonDetail?.attack}<br></br>Attacco</p></div>
+          <div><p>{pokemonDetail?.defense}<br></br>Difesa</p></div>
+          <div><p>{pokemonDetail?.speed}<br></br>Velocita</p></div>
+          <div><p>{pokemonDetail?.height}<br></br>Altezza</p></div>
+          <div><p>{pokemonDetail?.weight}<br></br>Peso</p></div>
+        </div>{/* footer */}
+
+
+
+
+        {/* Enlace de vuelta */}
+        {/* <div className={styles.box5}>
+        <Link className={styles.link} to={"/home"}>
+          <img src={charmeleon} alt="indietro" style={{ width: '100px' }} />
+          <p className={styles.p}>Indietro</p>
+        </Link>
+      </div> */}
+
+
+
+      </div> {/* card */}
     </div>
   );
 };
