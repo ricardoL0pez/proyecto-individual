@@ -1,3 +1,71 @@
+ /* import styles from './name.module.css';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPokemons } from "../../../redux/actions/index";
+import validation from "./validation";
+
+const Name = ({ name, value, onChange }) => {
+    const pokemons = useSelector((state) => state.pokemons);
+    const dispatch = useDispatch();
+
+    const [userData, setUserData] = useState({
+        name: value || "",
+    });
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+    
+        const updatedUserData = {
+            ...userData,
+            [name]: value, 
+        };
+    
+        const userValidated = validation({ [name]: value }, pokemons);
+        setErrors(userValidated);
+    
+        // Si el campo está vacío, se actualiza el estado userData y se limpian los errores
+        if (value.trim() === '') {
+            setUserData(updatedUserData);
+            setErrors({});
+        } else if (!userValidated[name]) {
+            // Si no hay errores de validación, se actualiza el estado userData
+            setUserData(updatedUserData);
+        }
+    
+        // Llamar a onChange con el valor actual (incluso si hay errores)
+        onChange(value);
+    };
+
+    useEffect(() => {
+        if (userData.name.trim() !== '') {
+            const userValidated = validation(userData, pokemons); 
+            setErrors(userValidated); 
+        }
+    }, [userData, pokemons]);
+
+    useEffect(() => {
+        dispatch(getAllPokemons());
+    }, [dispatch]);
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.label}>< label htmlFor="name">Nome</label></div>
+            <input className={styles.nameinput}
+                id="name"
+                type="text"
+                name={name}
+                placeholder="Nome"
+                value={userData.name}
+                onChange={handleChange}
+            />
+            {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+        </div>
+    );
+};
+
+export default Name;  */
+
 import styles from './name.module.css';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,4 +126,4 @@ const Name = ({ name, value, onChange }) => {
     );
 };
 
-export default Name;
+export default Name; 

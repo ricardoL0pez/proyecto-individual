@@ -2,40 +2,54 @@ import styles from './image.module.css';
 import validation from "./validation";
 import { useState, useEffect } from "react";
 
-const Image = ({ name, value, onChange }) => {
-    // Estado local para almacenar el valor de la URL de la imagen
+/* const Image = ({ name, value, onChange }) => {
     const [userData, setUserData] = useState({
-        image: value || "", // El estado inicial es el valor proporcionado o un string vacío si no se provee ninguno
+        image: value || "",
     });
 
-    // Estado local para manejar los errores de validación
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({}); */
 
   
-    // Función que se ejecuta cada vez que hay cambios en el input de la imagen
-    const handleChange = (event) => {
+    /* const handleChange = (event) => {
         const { value } = event.target;
 
-        // Actualiza el estado de userData con el nuevo valor ingresado en el input
         setUserData({
             ...userData,
-            image: value, // Actualiza el campo 'image' en 'userData' con el valor del input
+            image: value, 
         });
-        // Realiza la validación de la URL y actualiza los errores
+       
         const userValidated = validation({ image: value });
         setErrors(userValidated);
-        // Envia el valor actualizado al componente padre mediante la función onChange
         onChange(value);
-    };
+    }; */
 
-    // Efecto que se ejecuta cuando cambia el estado de userData
-    useEffect(() => {
-        // Verifica si el valor de la imagen no está vacío para realizar la validación
-        if (userData.image.trim() !== '') {
-            const userValidated = validation(userData); // Realiza la validación de la imagen
-            setErrors(userValidated); // Actualiza los errores con el resultado de la validación
+     /* const handleChange = (event) => {
+        const { value } = event.target;
+      
+        const userValidated = validation({ image: value });
+      
+        setErrors(userValidated);
+      
+        if (!userValidated.image) {
+          setUserData({
+            ...userData,
+            image: value,
+          });
+          onChange(value);
+        } else {
+          setUserData({
+            ...userData,
+            image: userData.image,
+          });
         }
-    }, [userData]);
+      }; 
+
+      useEffect(() => {
+        if (userData.image.trim() !== '') {
+            const userValidated = validation(userData); 
+            setErrors(userValidated);
+        }
+    }, [userData]); 
 
     return (
         <div className= {styles.container}>
@@ -45,12 +59,63 @@ const Image = ({ name, value, onChange }) => {
                 type="text"
                 name={name}
                 placeholder="URL dell'immagine"
-                value={userData.image} // Valor del input es el estado actual de 'image' en 'userData'
-                onChange={handleChange} // Función que se ejecuta cuando cambia el input
+                value={userData.image} 
+                onChange={handleChange}
             />
             {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
         </div>
     );
+};
+
+export default Image; */
+
+// ... (importaciones y definiciones)
+
+const Image = ({ name, value, onChange }) => {
+  const [userData, setUserData] = useState({
+      image: value || "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (event) => {
+      const { value } = event.target;
+    
+      const userValidated = validation({ image: value });
+      setErrors(userValidated);
+    
+      setUserData({
+          ...userData,
+          image: value,
+      });
+    
+      onChange(value);
+  }; 
+
+  useEffect(() => {
+      if (userData.image.trim() !== '') {
+          const userValidated = validation(userData); 
+          setErrors(userValidated);
+      }
+  }, [userData]); 
+
+  return (
+      <div className={styles.container}>
+          <div className={styles.label}>
+              <label htmlFor="image">URL</label>
+          </div>
+          <input
+              className={styles.imageinput}
+              id="image"
+              type="text"
+              name={name}
+              placeholder="URL dell'immagine"
+              value={userData.image} 
+              onChange={handleChange}
+          />
+          {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
+      </div>
+  );
 };
 
 export default Image;

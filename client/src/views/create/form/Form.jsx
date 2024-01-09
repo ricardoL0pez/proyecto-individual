@@ -60,67 +60,41 @@ const Form = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Previene el comportamiento por defecto de enviar el formulario
-  
-    // Array con los nombres de los campos requeridos
+    event.preventDefault();
+
     const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
-  
-    // Filtra los campos faltantes en el formulario actual
     const missingData = requiredData.filter(data => !formData[data]);
-  
-    // Comprueba si hay campos faltantes
-    if (missingData.length === 0) { // Si no hay campos faltantes:
+
+    if (missingData.length === 0) {
       dispatch(createPokemon(formData)); // Crea un nuevo Pokémon enviando los datos al store mediante una acción
       setSuccessMessage('Pokémon creati con successo!'); // Establece un mensaje de éxito
       console.log("Valid data:", formData); // Muestra en consola los datos válidos del formulario
       clearFormData(); // Limpia los datos del formulario
+
     } else { // Si hay campos faltantes:
       console.log("Missing data:", missingData); // Muestra en consola los campos faltantes
       alert(`Dati obbligatori: ${missingData.join(', ')}`); // Muestra una alerta con los campos faltantes
     }
   };
-  
+
 
   useEffect(() => {
-    setIsLoading(false); 
+    setIsLoading(false);
   }, []);
 
-  /* useEffect(() => {
-    // Array con los nombres de los campos requeridos para crear un Pokémon
-    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image', 'types'];
-  
-    // Verifica si todos los campos requeridos tienen valores válidos en formData
-    const isValid = requiredData.every(data => formData[data]); 
-   
-    // Comprueba si el campo 'types' tiene al menos un valor (no es null ni undefined)
-    const hasTypes = formData.types !== null && formData.types !== undefined;
-    
-      setFormValid(isValid && hasTypes);
-    
-    // Establece el estado 'formValid' basado en la validez de los datos y si 'types' tiene un valor
-    
-  }, [formData, formErrors]); */
-  
-  useEffect(() => {
-    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image', 'types'];
-  
-    // Verifica si hay algún campo requerido que esté vacío o si el campo 'types' no tiene datos seleccionados
-    const missingData = requiredData.filter(data => !formData[data]);
-    const missingTypes = formData.types.length === 0;
-  
-    // Verifica si no hay campos faltantes y 'types' tiene al menos un valor seleccionado para establecer 'formValid'
-    if (missingData.length === 0 && !missingTypes) {
-      setFormValid(true);
-    } else {
-      setFormValid(false);
-    }
-  }, [formData]);
-  
 
+useEffect(() => {
+     const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'image'];
+     const isValid = requiredData.every(data => formData[data]);   
+     const hasTypes = formData.types !== null && formData.types !== undefined && formData.types.length > 0;
+       setFormValid(isValid && hasTypes);    
+   }, [formData, formErrors]);
+
+  
   return (
     <>
 
-<div className={styles.navbar}>
+      <div className={styles.navbar}>
         <div className={styles.navbarContent}>
           <Link to="/home">
             <img src={logo} alt="logo-pokemon" style={{ width: '100px' }} />
@@ -128,77 +102,80 @@ const Form = () => {
         </div>
 
       </div>
-    
-    
-    <div className={styles.container}>
 
-      <video autoPlay loop muted className={styles.video}>
-        <source src={videoSource} type="video/mp4" />
-      </video>
+      <div className={styles.container}>
 
-      <div className={styles.box1}>
-        <h1>Crea il tuo pokemon</h1>
-        {isLoading && <Loader />}
-        {!isLoading && (
+        <video autoPlay loop muted className={styles.video}>
+          <source src={videoSource} type="video/mp4" />
+        </video>
 
-          <form onSubmit={handleSubmit}>
-            <Name name='name' value={formData.name} onChange={(value) => handleChange('name', value)} />
-            <br />
-            <Hp name='hp' value={formData.hp} onChange={(value) => handleChange('hp', value)} />
-            <Attack name='attack' value={formData.attack} onChange={(value) => handleChange('attack', value)} />
-            <Defense name='defense' value={formData.defense} onChange={(value) => handleChange('defense', value)} />
-            <Speed name='speed' value={formData.speed} onChange={(value) => handleChange('speed', value)} />
-            <Height name='height' value={formData.height} onChange={(value) => handleChange('height', value)} />
-            <Weight name='weight' value={formData.weight} onChange={(value) => handleChange('weight', value)} />
-            <Types name='types' value={formData.types} onChange={(value) => handleChange('types', value)} />
-            <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
+        <div className={styles.box1}>
+          <h1>Crea il tuo pokemon</h1>
+          {isLoading && <Loader />}
+          {!isLoading && (
 
-            <button className={`${styles.btncreate} ${formValid ? styles.btnValid : ''}`}
-              type="submit"
-              disabled={!formValid}>+</button>
-            <p>Creare</p>
+            <form onSubmit={handleSubmit}>
+              <Name name='name' value={formData.name} onChange={(value) => handleChange('name', value)} />
+              <br />
+              <Hp name='hp' value={formData.hp} onChange={(value) => handleChange('hp', value)} />
+              <Attack name='attack' value={formData.attack} onChange={(value) => handleChange('attack', value)} />
+              <Defense name='defense' value={formData.defense} onChange={(value) => handleChange('defense', value)} />
+              <Speed name='speed' value={formData.speed} onChange={(value) => handleChange('speed', value)} />
+              <Height name='height' value={formData.height} onChange={(value) => handleChange('height', value)} />
+              <Weight name='weight' value={formData.weight} onChange={(value) => handleChange('weight', value)} />
+              <Types name='types' value={formData.types} onChange={(value) => handleChange('types', value)} />
+              <Image name='types' value={formData.image} onChange={(value) => handleChange('image', value)} />
 
-          </form>
+              <button className={`${styles.btncreate} ${formValid ? styles.btnValid : ''}`}
+                type="submit"
+                disabled={!formValid}>+</button>
 
-        )}
-      </div>
+              
 
-      <div className={styles.box2}>
 
-        <div className={styles.box3}>
-          <Card
-            name={formData.name}
-            types={formData.types}
-            image={formData.image}
-            showDetailLink={false}
-          ></Card>
-          <div>
-            <br />
-            <p>Hp:{formData.hp}</p>
-            <p>Attacco:{formData.attack}</p>
-            <p>Difesa:{formData.defense}</p>
-            <p>Velocita:{formData.speed}</p>
-            <p>Altezza:{formData.height}</p>
-            <p>Peso:{formData.weight}</p>
-          </div>
-          {successMessage && <p style={{ color: 'green', marginTop: '20px' }}>{successMessage}</p>}
+              <p>Creare</p>
+
+            </form>
+
+          )}
         </div>
 
-        <div className={styles.box4}>
+        <div className={styles.box2}>
 
-          {/* Enlace de vuelta */}
-          <div className={styles.box5}>
-            <Link className={styles.link} to={"/home"}>
-              <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
-              <p className={styles.p}>Indietro</p>
-            </Link>
+          <div className={styles.box3}>
+            <Card
+              name={formData.name}
+              types={formData.types}
+              image={formData.image}
+              showDetailLink={false}
+            ></Card>
+            <div>
+              <br />
+              <p>Hp:{formData.hp}</p>
+              <p>Attacco:{formData.attack}</p>
+              <p>Difesa:{formData.defense}</p>
+              <p>Velocita:{formData.speed}</p>
+              <p>Altezza:{formData.height}</p>
+              <p>Peso:{formData.weight}</p>
+            </div>
+            {successMessage && <p style={{ color: 'green', marginTop: '20px' }}>{successMessage}</p>}
+          </div>
+
+          <div className={styles.box4}>
+
+            {/* Enlace de vuelta */}
+            <div className={styles.box5}>
+              <Link className={styles.link} to={"/home"}>
+                <img src={pikachu} alt="logo-pokemon" style={{ width: '100px' }} />
+                <p className={styles.p}>Indietro</p>
+              </Link>
+            </div>
+
           </div>
 
         </div>
 
-      </div>
-
-    </div>{/* container */} 
+      </div>{/* container */}
     </>
   );
 };

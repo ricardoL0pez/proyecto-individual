@@ -10,10 +10,11 @@ const Landing = () => {
       <div className={styles.content}>
         <img src={logo} alt="logo-pokemon" className={styles.logo} />
         <div className={styles.btn}>
+          <div className={styles.transition}></div>
           <Link to="/home" >
             <img src={pikachu} alt="pikachu" style={{ width: '100px' }}/>
           </Link>
-          <div className={styles.transition}></div>
+          
         </div>
        
       </div>

@@ -46,14 +46,14 @@ const Hp = ({ name, value, onChange }) => {
         hp: userValidated.hp || '', // Utiliza el mensaje de error validado o establece cadena vacía
       });
 
-      if (!userValidated.hp) {
+      if (!userValidated.hp) { // Si no hay errores de validación
         setUserData({
           ...userData,
           [name]: parsedValue,
         });
         onChange(parsedValue); // 📌Envía el nuevo valor al componente padre
       } else {
-        setUserData({
+        setUserData({ // Si hay errores de validación, mantiene el valor actual en el estado 'userData'
           ...userData,
           [name]: value, // Establece el valor en userData incluso si hay un error para mantener la coherencia
         });
