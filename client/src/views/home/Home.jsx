@@ -79,8 +79,8 @@ const Home = () => {
 
   const handleFilterType = (event) => {
     const selectedType = event.target.value;
-    dispatch(filterType(selectedType)); // Despachar la acción filterType con el tipo seleccionado
-  }; //al seleccionar un tipo en el menú desplegable, se pasará el valor seleccionado (selectedType) a la acción filterType para filtrar los pokemones según el tipo elegido.
+    dispatch(filterType(selectedType));
+  }; 
 
   return (
 
@@ -89,7 +89,7 @@ const Home = () => {
       <div className={styles.navbar}>
         <div className={styles.navbarContent}>
           <Link to="/home">
-            <img src={logo} alt="logo-pokemon" style={{ width: '100px' }} />
+            <img className={styles.logo} src={logo} alt="logo-pokemon" style={{ width: '100px' }} />
           </Link>
           <SearchBar handleChange={handleChange} />
         </div>

@@ -81,7 +81,8 @@ const Types = ({ name, value, onChange }) => {
 
                         checked={userData.includes(type.name)}
                         disabled={
-                            (userData.includes('908d0b42-b79e-4758-ba57-9ac31d420594') || userData.includes('3420682f-5aed-45a1-9654-489f21d9c621')) && !userData.includes(type.id)}
+                           /*  (userData.includes('908d0b42-b79e-4758-ba57-9ac31d420594') || userData.includes('3420682f-5aed-45a1-9654-489f21d9c621')) && !userData.includes(type.id)} */
+                            (userData.includes('normal') || userData.includes('unknown')) && !userData.includes(type.name)}
 
                     />
                     <div className={styles.label}><label  htmlFor={`type-${type.id}`}>{type.name}</label></div> {/* Muestra el nombre del tipo */}

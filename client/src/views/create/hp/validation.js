@@ -1,4 +1,4 @@
-function validation(input) {
+ function validation(input) {
     const errors = {};
 
     if (!input.hp) {
@@ -18,4 +18,4 @@ function validation(input) {
     return errors;
 }
 
-export default validation;
+export default validation; 

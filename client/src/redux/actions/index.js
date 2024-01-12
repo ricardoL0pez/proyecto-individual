@@ -9,17 +9,17 @@ import {
     FILTER_TYPE,
     FILTER_BY_ORIGIN,
     FILTER_BY_ATTACK
-} from "./action-types"; // Importa los tipos de acciones desde el archivo action-types.js
-import axios from "axios"; // Importa Axios para hacer peticiones HTTP
+} from "./action-types"; 
+import axios from "axios"; 
 
 import { URL_BASE, URL_TYPE } from "../../utils/config";
 
 // ACTION CREATOR para obtener personajes usando Axios con async-await
 export const getAllPokemons = () => {
     return async function (dispatch) {
-        const response = await axios(URL_BASE); // Realiza una solicitud GET para obtener datos de personajes desde una API (JSONPlaceholder en este caso)
-        dispatch({ type: GET_ALL_POKEMONS, payload: response.data }); // Despacha una acción con el tipo GET_CHARACTERS y los datos obtenidos como carga útil (payload)
-        // No se necesita manejo de error aquí, será manejado donde se llame a la función getCharacters.
+        const response = await axios(URL_BASE); 
+        dispatch({ type: GET_ALL_POKEMONS, payload: response.data }); 
+        
     };
 };
 
@@ -32,7 +32,7 @@ export const getPokemonId = (id) => {
 
 export const getPokemonByName = (name) => {
     return async function (dispatch) {
-        const response = await axios(`${URL_BASE}?name=${name}`); // Utilizo template strings para que el valor del nombre sea dinamico
+        const response = await axios(`${URL_BASE}?name=${name}`); 
         dispatch({ 
             type: GET_POKEMON_BY_NAME, 
             payload: response.data }); 
@@ -48,7 +48,7 @@ export const getAllTypes = () => {
 
 export const createPokemon = (pokemonData) => {
     return async function (dispatch) {
-        const response = await axios.post(URL_BASE, pokemonData); // Realiza una solicitud POST para almacenar datos en la base de datos
+        const response = await axios.post(URL_BASE, pokemonData); 
         dispatch({ type: CREATE_POKEMON, payload: response.data }); 
     };
 };
@@ -66,21 +66,21 @@ export const orderByName = (order) => {
     };
 };
 
-export const filterType = (selectedType) => { // recibe el valor seleccionado del menú desplegable como payload
+export const filterType = (selectedType) => { 
     return {
         type: FILTER_TYPE,
         payload: selectedType
     };
 };
 
- export const filterByOrigin = (selectedOrigin) => { // recibe el valor clickeado como payload
+ export const filterByOrigin = (selectedOrigin) => { 
     return {
         type: FILTER_BY_ORIGIN,
         payload: selectedOrigin
     };
 }; 
 
-export const filterByAttack = (selectedAttack) => { // recibe el valor clickeado como payload
+export const filterByAttack = (selectedAttack) => { 
     return {
         type: FILTER_BY_ATTACK,
         payload: selectedAttack

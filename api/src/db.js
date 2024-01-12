@@ -2,10 +2,10 @@ require('dotenv').config(); //Dependencia para leer las variables de entorno
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE } = process.env;//Variables de entorno
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE } = process.env;
 
-const sequelize = new Sequelize( //Creo una instancia de sequelize para interactuar con la base de datos PostgreSQL
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}`, //Configuración de conexión a la base de datos
+const sequelize = new Sequelize( 
+   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}`, 
    {
       logging: false, 
       native: false, 
@@ -34,12 +34,9 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// En sequelize.models están todos los modelos importados como propiedades, para relacionarlos hacemos un destructuring
 const { Pokemon, Type } = sequelize.models;
 
-/* Definición de los modelos que queremos implementar dentro de nuestra aplicacion*/
-//PokemonModel(sequalize); 
-//TypeModel(sequalize);
+
 
 //Asociaciones
 Pokemon.belongsToMany(Type, {through: "pokemon_type"}); //al crear la asocacion se crea una columna que se conoce como la clave foranea forenkey

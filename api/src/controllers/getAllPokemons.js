@@ -72,7 +72,7 @@ const removeDuplicatePokemonByID = (getAllPokemonFormatted) => {
     try {
         const pokemonArray = getAllPokemonFormatted();
         const uniquePokemonArray = pokemonArray.filter((pokemon, index, self) =>
-            index === self.findIndex((p) => (  //findIndex busca un elemento dentro del array y devuelve el índice de la primera ocurrencia que cumple con una condición específica proporcionada por la función de prueba. Este método retorna -1 si no encuentra ningún elemento que cumpla con la condición.
+            index === self.findIndex((p) => (  
                 p.id === pokemon.id
             ))
         );
@@ -106,6 +106,3 @@ module.exports = getAllPokemons;
 
 
 
-
-/* En la función getAllApi, se usa una función anónima para pasar formattedPokemonArray como argumento a removeDuplicatePokemonByID.
-Esta estructura permite que removeDuplicatePokemonByID acepte una función que devuelva formattedPokemonArray cuando sea invocada. */

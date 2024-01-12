@@ -2,10 +2,10 @@ const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 const { URL_BASE } = require('../utils/config');
 
-const getPokemonId = async (id, source) => { //recibe el ID y source como argumentos desde donde se invoca esta función
-    try { // Comienza un bloque try-catch para manejar errores
+const getPokemonId = async (id, source) => { 
+    try { 
         if (source === 'api') {
-            // Comprueba si la fuente es 'api'
+           
             const responseApi = await axios.get(`${URL_BASE}${id}`);
             const dataApi = responseApi.data;
 
@@ -65,5 +65,3 @@ const getPokemonId = async (id, source) => { //recibe el ID y source como argume
 
 module.exports = getPokemonId;
 
-
-/* getPokemonId es una función asincrónica que recibe dos parámetros: id (ID del Pokémon) y source (fuente de los datos, en este caso, se espera que sea 'api'). */

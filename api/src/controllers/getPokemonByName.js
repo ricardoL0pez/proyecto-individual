@@ -6,7 +6,7 @@ const { Op } = require('sequelize');
 const getPokemonByName = async (name) => {
     try {
         const pokemonInfoDb = await Pokemon.findAll({
-            where: { //Defino las condiciones de búsqueda
+            where: { 
                 name: {
                     [Op.iLike]: `%${name}%` //Op.iLike (insensitive like) para realizar una búsqueda insensible a mayúsculas y minúsculas y encontrar coincidencias parciales.
                 }

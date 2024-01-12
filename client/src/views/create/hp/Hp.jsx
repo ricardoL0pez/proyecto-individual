@@ -15,23 +15,23 @@ const Hp = ({ name, value, onChange }) => {
     const currentHp = Number(userData.hp);
     if (currentHp >= 0 && currentHp < 250) {
       setUserData({ ...userData, hp: currentHp + 1 });
-      onChange(currentHp + 1); // 📌Envía el nuevo valor al componente padre
+      onChange(currentHp + 1); 
     }
   };
 
   const disminuir = (event) => {
     event.preventDefault();
     const currentHp = Number(userData.hp);
-    if (currentHp > 1 && currentHp <= 250) {
+    if (currentHp > 1 && currentHp <= 250) { //xxvalor a 0
       setUserData({ ...userData, hp: currentHp - 1 });
-      onChange(currentHp - 1); // 📌Envía el nuevo valor al componente padre
+      onChange(currentHp - 1); 
     }
   };
 
   const resetear = (event) => {
     event.preventDefault();
     setUserData({ ...userData, hp: 0 });
-    onChange(0); // 📌Envía el nuevo valor al componente padre
+    onChange(0); 
   };
 
   const handleChange = (event) => {
@@ -43,19 +43,19 @@ const Hp = ({ name, value, onChange }) => {
 
       setErrors({
         ...errors,
-        hp: userValidated.hp || '', // Utiliza el mensaje de error validado o establece cadena vacía
+        hp: userValidated.hp || '', 
       });
 
-      if (!userValidated.hp) { // Si no hay errores de validación
+      if (!userValidated.hp) { 
         setUserData({
           ...userData,
           [name]: parsedValue,
         });
-        onChange(parsedValue); // 📌Envía el nuevo valor al componente padre
+        onChange(parsedValue); 
       } else {
-        setUserData({ // Si hay errores de validación, mantiene el valor actual en el estado 'userData'
+        setUserData({ 
           ...userData,
-          [name]: value, // Establece el valor en userData incluso si hay un error para mantener la coherencia
+          [name]: value, 
         });
       }
     }
@@ -65,14 +65,13 @@ const Hp = ({ name, value, onChange }) => {
     if (event.key === 'ArrowUp' && userData.hp < 240) {
       event.preventDefault();
       setUserData({ ...userData, hp: userData.hp + 10 });
-      onChange(userData.hp + 10); // 📌Envía el nuevo valor al componente padre
+      onChange(userData.hp + 10); 
     } else if (event.key === 'ArrowDown' && userData.hp >= 10) {
       event.preventDefault();
       setUserData({ ...userData, hp: userData.hp - 10 });
-      onChange(userData.hp - 10); // 📌Envía el nuevo valor al componente padre
+      onChange(userData.hp - 10); 
     } else if (event.key === 'ArrowDown' && userData.hp < 10) {
-      event.preventDefault(); // Evita el comportamiento predeterminado del navegador para la tecla presionada
-      // No se actualiza el estado de userData.hp si es menor que 10
+      event.preventDefault(); 
     }
   };
 
@@ -80,6 +79,8 @@ const Hp = ({ name, value, onChange }) => {
     if (userData.hp !== 0) {
       const userValidated = validation(userData);
       setErrors(userValidated);
+    } else {
+      setErrors({}); 
     }
   }, [userData]);
 

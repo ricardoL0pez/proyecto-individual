@@ -1,22 +1,6 @@
 
 
-/* const putPokemon1 = async (id, updatedInfo) => {
-    try {
-        const pokemonToPut = await Pokemon.findByPk(id);
 
-        if (!pokemonToPut) {
-            throw new Error('Pokemon not found');
-        } else {
-            await pokemonToPut.update(updatedInfo);
-            return {
-                success: true,
-                message: `Pokemon with ID ${id} successfully updated`,
-            };
-        }
-    } catch (error) {
-        throw new Error(error.message);
-    }
-}; */
 const { Pokemon } = require('../db');
 
 const putPokemon = async (id, name, attack, hp, defense, speed, height, weight, types, image) => {

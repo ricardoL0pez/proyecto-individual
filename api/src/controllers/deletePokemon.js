@@ -1,8 +1,8 @@
 const { Pokemon } = require('../db');
 
-const deletePokemon = async (id) => { //recibe el ID  como argumentos desde donde se invoca esta función
+const deletePokemon = async (id) => { 
     try {
-        const pokemonToDelete = await Pokemon.findByPk(id)//metodo de sequelize buscar un registro en la base de datos por su clave primaria (Primary Key)
+        const pokemonToDelete = await Pokemon.findByPk(id)
 
         if (!pokemonToDelete) {
             throw new Error('Pokemon not found 🫥')

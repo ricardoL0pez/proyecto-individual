@@ -34,7 +34,7 @@ const Form = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [formValid, setFormValid] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
+  
 
   const dispatch = useDispatch();
 
@@ -62,19 +62,19 @@ const Form = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
-    const missingData = requiredData.filter(data => !formData[data]);
+    /* const requiredData = ['name', 'hp', 'attack', 'defense', 'speed', 'height', 'weight', 'types', 'image'];
+    const isValid = requiredData.every(data => formData[data]); 
 
-    if (missingData.length === 0) {
+    if (isValid) { */
       dispatch(createPokemon(formData)); // Crea un nuevo Pokémon enviando los datos al store mediante una acción
       setSuccessMessage('Pokémon creati con successo!'); // Establece un mensaje de éxito
       console.log("Valid data:", formData); // Muestra en consola los datos válidos del formulario
       clearFormData(); // Limpia los datos del formulario
 
-    } else { // Si hay campos faltantes:
+    /* } else { // Si hay campos faltantes:
       console.log("Missing data:", missingData); // Muestra en consola los campos faltantes
-      alert(`Dati obbligatori: ${missingData.join(', ')}`); // Muestra una alerta con los campos faltantes
-    }
+      setSuccessMessage('Pokémon failed');
+    } */
   };
 
 
@@ -88,7 +88,7 @@ useEffect(() => {
      const isValid = requiredData.every(data => formData[data]);   
      const hasTypes = formData.types !== null && formData.types !== undefined && formData.types.length > 0;
        setFormValid(isValid && hasTypes);    
-   }, [formData, formErrors]);
+   }, [formData]);
 
   
   return (
